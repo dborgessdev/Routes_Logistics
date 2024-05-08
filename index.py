@@ -1,16 +1,45 @@
 from flask import Flask, render_template
-
+import requests
+import json
 
 app = Flask(__name__)
+link = "https://projetoflask-fb-default-rtdb.firebaseio.com/"
+
+""" def cad_motorista, através dessa function utilizamos as bibliotecas JSON e REQUESTS
+para o preenchimento de dados (através da variavel dados) no banco de dados do firebase da tabela de motoristas"""
+
+def cad_motorista(nome, cpf,cnh , id_veiculo,validade_cnh ):
+    dados = { 'nome': nome, 'cpf':cpf, 'cnh':cnh, 'id_veiculo': id_veiculo, 'validade_cnh':	validade_cnh}
+    requisicao = requests.post(f'{link}/motoristas/.json', data=json.dumps(dados))
+    print("Hello")
+    #criar um motorista
+    """print(requisicao)
+    print(requisicao.text) 
+    pode ser usado como forma de debug; 
+    """
+cad_motorista("Luiz", "00090040013", "02523654" , "kajsdh5465aksj16","15/11/26" )
+
+
+""" def cad_veiculo, através dessa function utilizamos as bibliotecas JSON e REQUESTS
+para o preenchimento de dados (através da variavel dados) no banco de dados do firebase da tabela de motoristas"""
+
+def cad_veiculo(placa, marca, modelo, ano_fabricacao, tipo_veiculo, capacidade_clarga, tag_rfid):
+    dados = { 'placa': placa, 'marca': marca, 'modelo': modelo, 'ano_fabricacao': ano_fabricacao, 'tipo_veiculo':	tipo_veiculo, 'capacidade_clarga': capacidade_clarga, 'tag_rfid': tag_rfid}
+    requisicao = requests.post(f'{link}/veiculos/.json', data=json.dumps(dados))
+    #criar um veiculo
+    """print(requisicao)
+    print(requisicao.text) 
+    pode ser usado como forma de debug; 
+    """
+cad_veiculo("Luiz", "00090040013", "02523654" , "kajsdh5465aksj16","15/11/26", "asdasd" , "asdsadas" )
+
 
 # 1) criar primeira pagina
 
 """
 1.2)
 Toda página no Flask sempre tem um "route" e uma função
-
 route = link / caminho da página depois do domínio https ex: meuprojetoflask.com ou podemos criar a rota para a pagina de login meuprojetoflask.com/login
-
 função = é o que queremos exibir em uma página
 
 """
