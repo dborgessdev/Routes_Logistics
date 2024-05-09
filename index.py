@@ -8,16 +8,15 @@ link = "https://projetoflask-fb-default-rtdb.firebaseio.com/"
 """ def cad_motorista, através dessa function utilizamos as bibliotecas JSON e REQUESTS
 para o preenchimento de dados (através da variavel dados) no banco de dados do firebase da tabela de motoristas"""
 
-def cad_motorista(nome, cpf,cnh , id_veiculo,validade_cnh ):
+def cad_motorista(nome, cpf,cnh , id_veiculo,validade_cnh):
     dados = { 'nome': nome, 'cpf':cpf, 'cnh':cnh, 'id_veiculo': id_veiculo, 'validade_cnh':	validade_cnh}
     requisicao = requests.post(f'{link}/motoristas/.json', data=json.dumps(dados))
-    print("Hello")
     #criar um motorista
     """print(requisicao)
     print(requisicao.text) 
     pode ser usado como forma de debug; 
     """
-cad_motorista("Luiz", "00090040013", "02523654" , "kajsdh5465aksj16","15/11/26" )
+cad_motorista("Luiz", "00090040013", "02523654" , "kajsdh5465aksj16","15/11/26")
 
 
 """ def cad_veiculo, através dessa function utilizamos as bibliotecas JSON e REQUESTS
@@ -33,6 +32,14 @@ def cad_veiculo(placa, marca, modelo, ano_fabricacao, tipo_veiculo, capacidade_c
     """
 cad_veiculo("Luiz", "00090040013", "02523654" , "kajsdh5465aksj16","15/11/26", "asdasd" , "asdsadas" )
 
+""" cad viagens """
+def cad_viagem(dados_inicio, dados_fim, distancia_total, status_viagem):
+    dados = {'dados_inicio': dados_inicio, 'dados_fim': dados_fim, 'distancia_total': distancia_total, 'status_viagem': status_viagem}
+    requisicao = requests.post(f'{link}/viagens/.json', data=json.dumps(dados))
+
+cad_viagem("02/05, 15:25, São Paulo", "03/05, 15:25, Feira de Santana", "200Km", "concluida")
+
+#Editar
 
 # 1) criar primeira pagina
 
