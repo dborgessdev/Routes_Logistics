@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motoristas</title>
+</head>
+<body>
+    <h1>Gerenciamento de motoristas</h1>
+    <h2>Lista de Motoristas</h2>
+    {% if motoristas %}
+    <ul>
+        {% for motorista in motoristas %}
+        <ul>
+            {% for motorista_id, motorista in motoristas.items() %}
+                <li>
+                    Nome: {{ motorista['nome'] }}<br>
+                    CPF: {{ motorista['cpf'] }}<br>
+                    CNH: {{ motorista['cnh'] }}<br>
+                    <!-- Adicione outros campos que deseja exibir -->
+                </li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Não há motoristas cadastrados.</p>
+    {% endif %}
+    <a href="http://127.0.0.1:5000/motoristas_cadastro"><input type="submit" value="Cadastrar novo motorista"></a>
+</body>
+</html>

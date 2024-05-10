@@ -1,45 +1,12 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 import requests
 import json
 
+from cadastrar_motoristas import cad_motoristas
+from buscar_motoristas import get_motoristas
+
 app = Flask(__name__)
 link = "https://projetoflask-fb-default-rtdb.firebaseio.com/"
-
-""" def cad_motorista, através dessa function utilizamos as bibliotecas JSON e REQUESTS
-para o preenchimento de dados (através da variavel dados) no banco de dados do firebase da tabela de motoristas"""
-
-def cad_motorista(nome, cpf,cnh , id_veiculo,validade_cnh):
-    dados = { 'nome': nome, 'cpf':cpf, 'cnh':cnh, 'id_veiculo': id_veiculo, 'validade_cnh':	validade_cnh}
-    requisicao = requests.post(f'{link}/motoristas/.json', data=json.dumps(dados))
-    #criar um motorista
-    """print(requisicao)
-    print(requisicao.text) 
-    pode ser usado como forma de debug; 
-    """
-cad_motorista("Luiz", "00090040013", "02523654" , "kajsdh5465aksj16","15/11/26")
-
-
-""" def cad_veiculo, através dessa function utilizamos as bibliotecas JSON e REQUESTS
-para o preenchimento de dados (através da variavel dados) no banco de dados do firebase da tabela de motoristas"""
-
-def cad_veiculo(placa, marca, modelo, ano_fabricacao, tipo_veiculo, capacidade_clarga, tag_rfid):
-    dados = { 'placa': placa, 'marca': marca, 'modelo': modelo, 'ano_fabricacao': ano_fabricacao, 'tipo_veiculo':	tipo_veiculo, 'capacidade_clarga': capacidade_clarga, 'tag_rfid': tag_rfid}
-    requisicao = requests.post(f'{link}/veiculos/.json', data=json.dumps(dados))
-    #criar um veiculo
-    """print(requisicao)
-    print(requisicao.text) 
-    pode ser usado como forma de debug; 
-    """
-cad_veiculo("Luiz", "00090040013", "02523654" , "kajsdh5465aksj16","15/11/26", "asdasd" , "asdsadas" )
-
-""" cad viagens """
-def cad_viagem(dados_inicio, dados_fim, distancia_total, status_viagem):
-    dados = {'dados_inicio': dados_inicio, 'dados_fim': dados_fim, 'distancia_total': distancia_total, 'status_viagem': status_viagem}
-    requisicao = requests.post(f'{link}/viagens/.json', data=json.dumps(dados))
-
-cad_viagem("02/05, 15:25, São Paulo", "03/05, 15:25, Feira de Santana", "200Km", "concluida")
-
-#Editar
 
 # 1) criar primeira pagina
 
@@ -70,6 +37,31 @@ def usuarios(nome_usuario):
     #2.2 Em nosso retorno, dentro da função importada render template informamos normalmente o nome do arquivo designado para essa pagina, criado na pasta templates e informamos que o arquivo irá chamar a função nome_usuario, que recebe como parametro o nome do usuário, assim, de maneira dinâmica, ao digitar: http://127.0.0.1:5000/usuarios/davi será gerado automaticamente através do html, uma página do usuario "davi"
     return render_template("usuarios.html", nome_usuario=nome_usuario)
 
+
+@app.route("/motoristas")
+def motoristas():
+    requisicao_motoristas, dados_motoristas = get_motoristas()
+    motoristas = json.loads(dados_motoristas)  # Convertendo os dados para um dicionário
+    return render_template("motoristas.html", motoristas=motoristas)
+
+@app.route("/motoristas_cadastro")
+def motoristas_cadastro():
+    return render_template("motoristas_cadastro.html")
+
+@app.route("/cadastrar_motorista", methods=["POST"])
+def cadastrar_motorista():
+    if request.method == "POST":
+        nome = request.form["nome"]
+        cpf = request.form["cpf"]
+        cnh = request.form["cnh"]
+        id_veiculo = request.form["id_veiculo"]
+        validade_cnh = request.form["validade_cnh"]
+        cad_motoristas(nome, cpf, cnh, id_veiculo, validade_cnh)
+        return redirect("/motoristas")
+    else:
+        return "Erro: Método de requisição falhou ou não é POST!"
+
 #colocar o site no ar
 if __name__ == "__main__":
+    #OBS: utiliza-se app.run(debug=True) para ligrar o debug, porém o console retornará o comando executado 2x gerando 2x dados para o banco de dados 
     app.run(debug=True)
