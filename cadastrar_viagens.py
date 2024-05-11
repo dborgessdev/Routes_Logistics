@@ -7,11 +7,11 @@ link = "https://projetoflask-fb-default-rtdb.firebaseio.com/"
 
 
 """ cad viagens """
-def cad_viagem(dados_inicio, dados_fim, distancia_total, status_viagem):
+def cad_viagens(dados_inicio, dados_fim, distancia_total, status_viagem):
     dados = {'dados_inicio': dados_inicio, 'dados_fim': dados_fim, 'distancia_total': distancia_total, 'status_viagem': status_viagem}
     requisicao = requests.post(f'{link}/viagens/.json', data=json.dumps(dados))
 
-cad_viagem("02/05, 15:25, São Paulo", "03/05, 15:25, Feira de Santana", "200Km", "concluida")
+    ("02/05, 15:25, São Paulo", "03/05, 15:25, Feira de Santana", "200Km", "concluida")
 
 #colocar o site no ar
 if __name__ == "__main__":

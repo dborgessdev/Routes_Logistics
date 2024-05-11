@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Motoristas</title>
+    <title>Veiculos</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -44,17 +44,21 @@
     </style>
 </head>
 <body>
-    <h1>Gerenciamento de motoristas</h1>
-    <h2>Lista de Motoristas</h2>
-    {% if motoristas %}
+    <h1>Gerenciamento de veículos</h1>
+    <h2>Lista de Veiculos</h2>
+    {% if veiculos %}
     <ul>
-        {% for motorista in motoristas %}
+        {% for veiculo in veiculos %}
         <ul>
-            {% for motorista_id, motorista in motoristas.items() %}
+            {% for veiculo_id, veiculo in veiculos.items() %}
                 <li>
-                    Nome: {{ motorista['nome'] }}<br>
-                    CPF: {{ motorista['cpf'] }}<br>
-                    CNH: {{ motorista['cnh'] }}<br>
+                    Placa: {{ veiculo['placa'] }}<br>
+                    Marca: {{ veiculo['marca'] }}<br>
+                    Modelo: {{ veiculo['modelo'] }}<br>
+                    Ano: {{ veiculo['ano_fabricacao'] }}<br>
+                    Tipo: {{ veiculo['tipo_veiculo'] }}<br>
+                    Carga: {{ veiculo['capacidade_carga'] }}<br>
+                    Tag RFID: {{ veiculo['tag_rfid'] }}<br>
                     <!-- Adicione outros campos que deseja exibir -->
                 </li>
             {% endfor %}
@@ -62,9 +66,9 @@
         {% endfor %}
     </ul>
     {% else %}
-    <p>Não há motoristas cadastrados.</p>
+    <p>Não há veículos cadastrados.</p>
     {% endif %}
-    <a href="http://127.0.0.1:5000/motoristas_cadastro"><input type="submit" value="Cadastrar novo motorista"></a>
+    <a href="http://127.0.0.1:5000/veiculos_cadastro"><input type="submit" value="Cadastrar novo veiculo"></a>
     <a href="/" class="button">Início</a>
 </body>
 </html>

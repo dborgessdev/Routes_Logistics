@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Motoristas</title>
+    <title>Viagens</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -44,17 +44,18 @@
     </style>
 </head>
 <body>
-    <h1>Gerenciamento de motoristas</h1>
-    <h2>Lista de Motoristas</h2>
-    {% if motoristas %}
+    <h1>Gerenciamento de viagens</h1>
+    <h2>Lista de viagens</h2>
+    {% if viagens %}
     <ul>
-        {% for motorista in motoristas %}
+        {% for viagem in viagens %}
         <ul>
-            {% for motorista_id, motorista in motoristas.items() %}
+            {% for viagem_id, viagem in viagens.items() %}
                 <li>
-                    Nome: {{ motorista['nome'] }}<br>
-                    CPF: {{ motorista['cpf'] }}<br>
-                    CNH: {{ motorista['cnh'] }}<br>
+                    Data de Início: {{ viagem['dados_inicio'] }}<br>
+                    Data de Fim: {{ viagem['dados_fim'] }}<br>
+                    Distância Total: {{ viagem['distancia_total'] }}<br>
+                    Status da Viagem: {{ viagem['status_viagem'] }}<br>
                     <!-- Adicione outros campos que deseja exibir -->
                 </li>
             {% endfor %}
@@ -62,9 +63,9 @@
         {% endfor %}
     </ul>
     {% else %}
-    <p>Não há motoristas cadastrados.</p>
+    <p>Não há viagens cadastradas.</p>
     {% endif %}
-    <a href="http://127.0.0.1:5000/motoristas_cadastro"><input type="submit" value="Cadastrar novo motorista"></a>
+    <a href="http://127.0.0.1:5000/viagens_cadastro"><input type="submit" value="Cadastrar nova viagem"></a>
     <a href="/" class="button">Início</a>
 </body>
 </html>

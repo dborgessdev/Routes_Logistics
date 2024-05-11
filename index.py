@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request, redirect
 import requests
 import json
-
-from cadastrar_motoristas import cad_motoristas
+from buscar_veiculos import get_veiculos
 from buscar_motoristas import get_motoristas
+from buscar_viagens import get_viagens
+from cadastrar_veiculos import cad_veiculos
+from cadastrar_motoristas import cad_motoristas
+from cadastrar_viagens import cad_viagens
 
 app = Flask(__name__)
 link = "https://projetoflask-fb-default-rtdb.firebaseio.com/"
@@ -37,6 +40,31 @@ def usuarios(nome_usuario):
     #2.2 Em nosso retorno, dentro da função importada render template informamos normalmente o nome do arquivo designado para essa pagina, criado na pasta templates e informamos que o arquivo irá chamar a função nome_usuario, que recebe como parametro o nome do usuário, assim, de maneira dinâmica, ao digitar: http://127.0.0.1:5000/usuarios/davi será gerado automaticamente através do html, uma página do usuario "davi"
     return render_template("usuarios.html", nome_usuario=nome_usuario)
 
+@app.route("/veiculos")
+
+def veiculos():
+    requisicao_veiculos, dados_veiculos = get_veiculos()
+    veiculos = json.loads(dados_veiculos)
+    return render_template("veiculos.html", veiculos=veiculos)
+
+@app.route("/veiculos_cadastro")
+def veiculos_cadastro():
+    return render_template("veiculos_cadastro.html")
+
+@app.route("/cadastrar_veiculo", methods=["POST"])
+def cadastrar_veiculo():
+    if request.method == "POST":
+        placa = request.form["placa"]
+        marca = request.form["marca"]
+        modelo = request.form["modelo"]
+        ano_fabricacao = request.form["ano_fabricacao"]
+        tipo_veiculo = request.form["tipo_veiculo"]
+        capacidade_carga = request.form["capacidade_carga"]
+        tag_rfid = request.form["tag_rfid"]
+        cad_veiculos(placa, marca, modelo, ano_fabricacao, tipo_veiculo, capacidade_carga, tag_rfid)  # Chamada da função para cadastrar veículo
+        return redirect("/veiculos")
+    else:
+        return "Erro: Método de requisição falhou ou não é POST!"
 
 @app.route("/motoristas")
 def motoristas():
@@ -58,6 +86,28 @@ def cadastrar_motorista():
         validade_cnh = request.form["validade_cnh"]
         cad_motoristas(nome, cpf, cnh, id_veiculo, validade_cnh)
         return redirect("/motoristas")
+    else:
+        return "Erro: Método de requisição falhou ou não é POST!"
+    
+@app.route("/viagens")
+def viagens():
+    requisicao_viagem, dados_viagem = get_viagens()
+    viagens = json.loads(dados_viagem)  # Convertendo os dados para um dicionário
+    return render_template("viagens.html", viagens=viagens)
+
+@app.route("/viagens_cadastro")
+def viagens_cadastro():
+    return render_template("viagens_cadastro.html")
+
+@app.route("/cadastrar_viagem", methods=["POST"])
+def cadastrar_viagem():
+    if request.method == "POST":
+        dados_inicio = request.form["dados_inicio"]
+        dados_fim = request.form["dados_fim"]
+        distancia_total = request.form["distancia_total"]
+        status_viagem = request.form["status_viagem"]
+        cad_viagens(dados_inicio, dados_fim, distancia_total, status_viagem)  # Chamada da função para cadastrar viagem
+        return redirect("/viagens")
     else:
         return "Erro: Método de requisição falhou ou não é POST!"
 
