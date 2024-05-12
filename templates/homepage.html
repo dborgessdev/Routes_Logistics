@@ -11,12 +11,28 @@
             background-image: linear-gradient(210deg, #293268 0%, #1c0d1b 46%, #181511 100%);
             margin: 0;
             padding: 0;
-            display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             color: white;
         }
+
+        .navbar, .navbar-nav, .nav-item, .nav-link, .nav-item a {
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+            text-decoration: none;
+            list-style: none;
+         
+        } 
+
+        .nav-item a:hover {
+            color: #007bff;
+        }
+
 
         .container {
             text-align: center;
@@ -45,7 +61,17 @@
     </style>
 </head>
 <body>
-
+<nav class="navbar">
+    <ul class="navbar-nav">
+        <li class="nav-item"><a href="/">Home</a></li>
+        <li class="nav-item"><a href="/motoristas">Motoristas</a></li>
+        <li class="nav-item"><a href="/viagens">Viagens</a></li>
+        <li class="nav-item"><a href="/veiculos">Veículos</a></li>
+        <li class="nav-item"><a href="/login">Login</a></li>
+        <li class="nav-item"><a href="/logout">Logout</a></li>
+    </ul>
+</nav>
+<br>
 <div class="container">
     <h1>Advantage Logistica</h1>
     <h2>Selecione uma opção:</h2>
@@ -53,6 +79,5 @@
     <a href="/viagens" class="button">Viagens</a>
     <a href="/veiculos" class="button">Veículos</a>
 </div>
-
 </body>
 </html>
