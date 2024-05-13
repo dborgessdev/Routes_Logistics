@@ -48,18 +48,14 @@
     <h2>Lista de viagens</h2>
     {% if viagens %}
     <ul>
-        {% for viagem in viagens %}
-        <ul>
-            {% for viagem_id, viagem in viagens.items() %}
-                <li>
-                    Data de Início: {{ viagem['dados_inicio'] }}<br>
-                    Data de Fim: {{ viagem['dados_fim'] }}<br>
-                    Distância Total: {{ viagem['distancia_total'] }}<br>
-                    Status da Viagem: {{ viagem['status_viagem'] }}<br>
-                    <!-- Adicione outros campos que deseja exibir -->
-                </li>
-            {% endfor %}
-        </ul>
+        {% for viagem_id, viagem in viagens.items() %}
+            <li>
+                Data de Início: {{ viagem['dados_inicio'] }}<br>
+                Data de Fim: {{ viagem['dados_fim'] }}<br>
+                Distância Total: {{ viagem['distancia_total'] }}<br>
+                Status da Viagem: {{ viagem['status_viagem'] }}<br>
+                <!-- Adicione outros campos que deseja exibir -->
+            </li>
         {% endfor %}
     </ul>
     {% else %}

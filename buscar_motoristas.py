@@ -16,7 +16,6 @@ requisicao_motoristas = requests.get(f'{link}/motoristas/.json')
 print(requisicao_motoristas)
 print(requisicao_motoristas.text)
 
-
 #colocar o site no ar
 if __name__ == "__main__":
     #OBS: utiliza-se app.run(debug=True) para ligrar o debug, porém o console retornará o comando executado 2x gerando 2x dados para o banco de dados 

@@ -48,17 +48,13 @@
     <h2>Lista de Motoristas</h2>
     {% if motoristas %}
     <ul>
-        {% for motorista in motoristas %}
-        <ul>
-            {% for motorista_id, motorista in motoristas.items() %}
-                <li>
-                    Nome: {{ motorista['nome'] }}<br>
-                    CPF: {{ motorista['cpf'] }}<br>
-                    CNH: {{ motorista['cnh'] }}<br>
-                    <!-- Adicione outros campos que deseja exibir -->
-                </li>
-            {% endfor %}
-        </ul>
+        {% for motorista_id, motorista in motoristas.items() %}
+            <li>
+                Nome: {{ motorista['nome'] }}<br>
+                CPF: {{ motorista['cpf'] }}<br>
+                CNH: {{ motorista['cnh'] }}<br>
+                <!-- Adicione outros campos que deseja exibir -->
+            </li>
         {% endfor %}
     </ul>
     {% else %}

@@ -47,8 +47,6 @@
     <h1>Gerenciamento de veículos</h1>
     <h2>Lista de Veiculos</h2>
     {% if veiculos %}
-    <ul>
-        {% for veiculo in veiculos %}
         <ul>
             {% for veiculo_id, veiculo in veiculos.items() %}
                 <li>
@@ -63,8 +61,6 @@
                 </li>
             {% endfor %}
         </ul>
-        {% endfor %}
-    </ul>
     {% else %}
     <p>Não há veículos cadastrados.</p>
     {% endif %}
