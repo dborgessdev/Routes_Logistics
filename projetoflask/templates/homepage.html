@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advantage Logistica</title>
+    <link rel="stylesheet" href="homepage.css">
+</head>
+<body>
+    <nav class="navbar" id="myTopnav">
+        <a href="/" class="active">Home</a>
+        <a href="/motoristas">Motoristas</a>
+        <a href="/viagens">Viagens</a>
+        <a href="/veiculos">Veículos</a>
+        <a href="/login">Login</a>
+        <a href="/logout">Logout</a>
+        <a href="javascript:void(0);" class="icon" onclick="responsiveNav()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </nav>
+<br>
+
+<div class="container">
+    <h1>Advantage Logistica</h1>
+    <h2>Selecione uma opção:</h2>
+    <div class="container-content">
+        <a href="/motoristas" class="button">Motoristas</a>
+        <a href="/viagens" class="button">Viagens</a>
+        <a href="/veiculos" class="button">Veículos</a>
+    </div>
+</div>
+
+</body>
+
+
+<script>
+    function responsiveNav() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "navbar") {
+            x.className += " responsive";
+        } else {
+            x.className = "navbar";
+        }
+    }
+</script>
+
+</html>
