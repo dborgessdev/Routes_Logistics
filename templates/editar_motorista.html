@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Motoristas</title>
+    <title>Buscar e Editar Motorista</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,38 +41,29 @@
         .button:hover {
             background-color: #0056b3;
         }
-
-        /* Adicionando estilo para os botões de editar */
-        .editar-button {
-            background-color: #28a745;
-        }
-
-        .editar-button:hover {
-            background-color: #218838;
-        }
     </style>
 </head>
 <body>
-    <h1>Gerenciamento de motoristas</h1>
-    <h2>Lista de Motoristas</h2>
-    {% if motoristas %}
-    <ul>
-        {% for motorista_id, motorista in motoristas.items() %}
-            <li>
-                Nome: {{ motorista['nome'] }}<br>
-                CPF: {{ motorista['cpf'] }}<br>
-                CNH: {{ motorista['cnh'] }}<br>
-                <!-- Adicione outros campos que deseja exibir -->
-
-                <!-- Adicione o botão de editar -->
-                <a href="http://127.0.0.1:5000/editar_motorista/{{ motorista['nome'] }}" class="button editar-button">Editar</a>
-            </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p>Não há motoristas cadastrados.</p>
-    {% endif %}
-    <a href="http://127.0.0.1:5000/motoristas_cadastro" class="button">Cadastrar novo motorista</a>
-    <a href="/" class="button">Início</a>
+    <h1>Editar Motorista</h1>
+    <form action="/editar_motorista/{{ motorista['nome'] }}" method="POST">
+        <h2>Informações do Motorista: {{ motorista.nome }}</h2>
+        
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" value="{{ motorista.cpf }}"><br>
+        
+        <label for="cnh">CNH:</label>
+        <input type="text" id="cnh" name="cnh" value="{{ motorista.cnh }}"><br>
+        
+        <label for="id_veiculo">ID do Veículo:</label>
+        <input type="text" id="id_veiculo" name="id_veiculo" value="{{ motorista.id_veiculo }}"><br>
+        
+        <label for="validade_cnh">Validade da CNH:</label>
+        <input type="text" id="validade_cnh" name="validade_cnh" value="{{ motorista.validade_cnh }}"><br>
+        
+        <!-- Adicione um campo oculto para armazenar o nome do motorista -->
+        <input type="hidden" id="nome" name="nome" value="{{ motorista.nome }}">
+        
+        <button type="submit">Salvar Alterações</button>
+    </form>
 </body>
 </html>
