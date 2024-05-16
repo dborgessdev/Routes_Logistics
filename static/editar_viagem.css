@@ -18,7 +18,7 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #293268;
-    background-image: linear-gradient(210deg, #293268 0%, #1c0d1b 46%, #181511 100%); 
+    background-image: linear-gradient(210deg, #293268 0%, #1c0d1b 46%, #181511 100%);
     margin: 0;
     padding: 0;
     background-repeat: no-repeat;
@@ -43,11 +43,18 @@ body {
     transition: background-color 0.3s ease;
 }
 
+form label {
+    display: block;
+    margin-bottom: 10px; /* Ajuste conforme necessário */
+}
+
+
 .button:hover {
     background-color: #293268;
     background-image: linear-gradient(210deg, #293268 0%, #1c0d1b 46%, #181511 100%);
 }
-   
+
+    
 
         .navbar {
             background-color: #293268;

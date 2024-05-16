@@ -1,74 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar e Editar Viagens</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #293268;
-            background-image: linear-gradient(210deg, #293268 0%, #1c0d1b 46%, #181511 100%);
-            margin-left: 12px;
-            padding: 0;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: white;
-        }
-
-        .container {
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 36px;
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            margin: 10px;
-            background-color: #007bff;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='editar_viagem.css') }}">
 </head>
+
 <body>
-    <h1>Editar Viagens</h1>
-    <h2>Motorista responsável da Viagem: {{ viagem.motorista }}</h2>
-    <form action="/editar_viagem/{{ viagem['motorista'] }}" method="POST">
-                 
-        <label for="origem">Origem:</label>
-        <input type="text" id="origem" name="origem" value="{{ viagem.origem }}"><br>
-        
-        <label for="destino">Destino:</label>
-        <input type="text" id="destino" name="destino" value="{{ viagem.destino }}"><br>
-        
-        <label for="data_inicio">Data de Início:</label>
-        <input type="text" id="data_inicio" name="data_inicio" value="{{ viagem.data_inicio }}"><br>
-        
-        <label for="data_fim">Data de Fim:</label>
-        <input type="text" id="data_fim" name="data_fim" value="{{ viagem.data_fim }}"><br>
-        
-        <label for="distancia_total">Distância Total:</label>
-        <input type="text" id="distancia_total" name="distancia_total" value="{{ viagem.distancia_total }}"><br>
-        
-        <label for="status_viagem">Status da Viagem:</label>
-        <input type="text" id="status_viagem" name="status_viagem" value="{{ viagem.status_viagem }}"><br>
-        
-        <input type="hidden" id="motorista" name="motorista" value="{{ viagem.motorista }}">
-        
-        <button type="submit">Salvar Alterações</button>
-    </form>
+    <nav class="navbar" id="myTopnav">
+        <a href="/" class="active">Home</a>
+        <a href="/motoristas">Motoristas</a>
+        <a href="/viagens">Viagens</a>
+        <a href="/veiculos">Veículos</a>
+        <a href="/login">Login</a>
+        <a href="/logout">Logout</a>
+        <a href="javascript:void(0);" class="icon" onclick="responsiveNav()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </nav>
+    <br>
+    <div class="container">
+        <h1>Editar Viagens</h1>
+        <h2>Motorista responsável da Viagem: {{ viagem.motorista }}</h2>
+        <form action="/editar_viagem/{{ viagem['motorista'] }}" method="POST">
+
+            <label for="origem">Origem:</label>
+            <input type="text" id="origem" name="origem" value="{{ viagem.origem }}"><br>
+
+            <label for="destino">Destino:</label>
+            <input type="text" id="destino" name="destino" value="{{ viagem.destino }}"><br>
+
+            <label for="data_inicio">Data de Início:</label>
+            <input type="text" id="data_inicio" name="data_inicio" value="{{ viagem.data_inicio }}"><br>
+
+            <label for="data_fim">Data de Fim:</label>
+            <input type="text" id="data_fim" name="data_fim" value="{{ viagem.data_fim }}"><br>
+
+            <label for="distancia_total">Distância Total:</label>
+            <input type="text" id="distancia_total" name="distancia_total" value="{{ viagem.distancia_total }}"><br>
+
+            <label for="status_viagem">Status da Viagem:</label>
+            <input type="text" id="status_viagem" name="status_viagem" value="{{ viagem.status_viagem }}"><br>
+
+            <input type="hidden" id="motorista" name="motorista" value="{{ viagem.motorista }}">
+            <br>
+            <a href="/viagens" class="button">Voltar</a>
+            <button type="submit" class="button editar-button">Salvar Alterações</button>
+        </form>
+    </div>
+    <script>
+        function responsiveNav() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "navbar") {
+                x.className += " responsive";
+            } else {
+                x.className = "navbar";
+            }
+        }
+    </script>
 </body>
+
 </html>

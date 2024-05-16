@@ -1,95 +1,103 @@
-body {
-    background-color: #293268;
-    background-image: linear-gradient(210deg, #293268 0%, #1c0d1b 46%, #181511 100%); 
-    color: #ffffff; /* Cor do texto branco */
-    margin: 0; /* Remova as margens padrão do corpo */
-    font-family: Arial, sans-serif; /* Altere a fonte conforme necessário */
-}
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding: 20px; /* Adiciona margens internas */
-    max-width: 600px; /* Limita a largura do container */
-    margin: 0 auto; /* Centraliza o container na horizontal */
-}
-
-
-form {
-    text-align: center;
     background-color: #ffffff; /* Cor de fundo branco */
-    padding: 20px; /* Espaçamento interno */
     border-radius: 10px; /* Borda arredondada */
+    padding: 20px; /* Espaçamento interno */
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); /* Sombra suave */
-    color: #000000;
-    font-family: 'Roboto', sans-serif;
+    text-align: center; /* Centraliza o texto */
+    max-width: 800px; /* Definindo uma largura máxima */
+    margin: 150px auto 0; /* Centralizando horizontalmente e adicionando margem superior */
 }
 
-input[type="submit"] {
-    border-radius: 20px; /* Borda arredondada */
+.container-content {
+    max-width: 600px; /* Definindo uma largura máxima para o conteúdo */
+    margin: 0 auto; /* Centralizando horizontalmente */
+}
+
+
+body {
+    font-family: Arial, sans-serif;
     background-color: #293268;
-    background-image: linear-gradient(210deg, #293268 0%, #1c0d1b 46%, #181511 100%); 
-    border: none; /* Remove a borda padrão */
-    padding: 10px 20px; /* Espaçamento interno */
-    color: #ffffff; /* Cor do texto */
-    font-weight: bold; /* Negrito */
-    cursor: pointer; /* Altera o cursor para indicar que é clicável */
-    transition: background-color 0.3s ease; /* Adiciona transição suave */
+    background-image: linear-gradient(210deg, #293268 0%, #1c0d1b 46%, #181511 100%);
+    margin: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
-input[type="submit"]:hover {
-    background-color: #999999; /* Cor cinza mais escura ao passar o mouse */
+.container h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #293268; /* Cor do texto principal */
 }
 
-.navbar {
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
     background-color: #293268;
-    overflow: hidden;
-}
-
-.navbar a {
-    float: left;
-    display: block;
-    color: #ffffff;
-    text-align: center;
-    padding: 14px 20px;
+    background-image: linear-gradient(210deg, #293268 0%, #1c0d1b 46%, #181511 100%);
+    color: #fff;
     text-decoration: none;
-    font-size: 17px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
-.navbar a:hover {
-    background-color: #ddd;
-    color: black;
+.button:hover {
+    background-color: #293268;
+    background-image: linear-gradient(210deg, #293268 0%, #1c0d1b 46%, #181511 100%);
 }
 
-.navbar a.active {
-    background-color: #ffffff;
-    color: black;
-}
+    
 
-.navbar .icon {
-    display: none;
-}
-
-@media screen and (max-width: 768px) {
-    .navbar a:not(:first-child) {display: none;}
-    .navbar a.icon {
-        float: right;
-        display: block;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .navbar.responsive {position: relative;}
-    .navbar.responsive .icon {
-        position: absolute;
-        right: 0;
-        top: 0;
-    }
-    .navbar.responsive a {
-        float: none;
-        display: block;
-        text-align: left;
-    }
-}
+        .navbar {
+            background-color: #293268;
+            overflow: hidden;
+        }
+        
+        .navbar a {
+            float: left;
+            display: block;
+            color: #ffffff;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        
+        .navbar a.active {
+            background-color: #ffffff;
+            color: black;
+        }
+        
+        .navbar .icon {
+            display: none;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .navbar a:not(:first-child) {display: none;}
+            .navbar a.icon {
+                float: right;
+                display: block;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .navbar.responsive {position: relative;}
+            .navbar.responsive .icon {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+            .navbar.responsive a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+        }
+        
