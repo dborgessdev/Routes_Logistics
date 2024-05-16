@@ -32,7 +32,10 @@
                     Ano: {{ veiculo['ano_fabricacao'] }}<br>
                     Tipo: {{ veiculo['tipo_veiculo'] }}<br>
                     Carga: {{ veiculo['capacidade_carga'] }}<br>
-                    Tag RFID: {{ veiculo['tag_rfid'] }}<br>
+                    Tag RFID: {{ veiculo['tag_rfid'] }}
+                    <br>
+                    <a href="http://127.0.0.1:5000/editar_veiculo/{{ veiculo['placa'] }}"
+                    class="button editar-button">Editar</a>
                     <!-- Adicione outros campos que deseja exibir -->
                 </li>
             {% endfor %}

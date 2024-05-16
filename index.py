@@ -11,6 +11,8 @@ from get_motorista_por_nome import get_motorista_por_nome
 from atualizar_motorista import atualizar_motorista
 from get_viagens_por_motorista import get_viagens_por_motorista
 from atualizar_viagem import atualizar_viagem
+from get_veiculo_por_placa import get_veiculo_por_placa
+from atualizar_veiculo import atualizar_veiculo
 
 app = Flask(__name__)
 link = "https://projetoflask-fb-default-rtdb.firebaseio.com/"
@@ -43,6 +45,31 @@ def cadastrar_veiculo():
         return redirect("/veiculos")
     else:
         return "Erro: Método de requisição falhou ou não é POST!"
+    
+@app.route("/editar_veiculo/<string:placa>", methods=["GET", "POST"])
+def editar_veiculo(placa):
+    if request.method == "GET":
+        # Chama a função para obter os detalhes do veículo pelo placa
+        veiculo_id, dados_veiculo = get_veiculo_por_placa(placa, link)
+        if dados_veiculo is not None:
+            veiculo = json.loads(dados_veiculo)
+            return render_template("editar_veiculo.html", veiculo=veiculo)
+        else:
+            # Se o veículo não for encontrado, redireciona para alguma página ou retorna uma mensagem
+            return "Veículo não encontrado.", 404
+    elif request.method == "POST":
+        # Processa os dados enviados do formulário de edição e atualiza o veículo
+        placa = request.form["placa"]
+        marca = request.form["marca"]
+        modelo = request.form["modelo"]
+        ano_fabricacao = request.form["ano_fabricacao"]
+        tipo_veiculo = request.form["tipo_veiculo"]
+        capacidade_carga = request.form["capacidade_carga"]
+        tag_rfid = request.form["tag_rfid"]
+        # Chama a função para atualizar o veículo
+        if atualizar_veiculo(placa, marca, modelo, ano_fabricacao, tipo_veiculo, capacidade_carga, tag_rfid, link):
+            return redirect("/veiculos")
+
 
 @app.route("/motoristas")
 def motoristas():
@@ -141,7 +168,10 @@ def editar_viagem(motorista):
         else:
             # Se a atualização falhar, redireciona para alguma página ou retorna uma mensagem
             return "Falha ao atualizar a viagem.", 500
-
+        
+@app.route("/login")
+def login():
+    return render_template("login.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
