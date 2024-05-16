@@ -9,6 +9,8 @@ from cadastrar_motoristas import cad_motoristas
 from cadastrar_viagens import cad_viagens
 from get_motorista_por_nome import get_motorista_por_nome
 from atualizar_motorista import atualizar_motorista
+from get_viagens_por_motorista import get_viagens_por_motorista
+from atualizar_viagem import atualizar_viagem
 
 app = Flask(__name__)
 link = "https://projetoflask-fb-default-rtdb.firebaseio.com/"
@@ -72,7 +74,7 @@ def editar_motorista(nome):
         motorista_id, dados_motorista = get_motorista_por_nome(nome, link)
         if dados_motorista is not None:
             motorista = json.loads(dados_motorista)
-            return render_template("editar_motorista.html", motorista=motorista)
+            return render_template("editar_motorista.html",motorista=motorista)
         else:
             # Se o motorista não for encontrado, redireciona para alguma página de erro
             return render_template("pagina_de_erro.html")
@@ -102,14 +104,44 @@ def viagens_cadastro():
 @app.route("/cadastrar_viagem", methods=["POST"])
 def cadastrar_viagem():
     if request.method == "POST":
-        dados_inicio = request.form["dados_inicio"]
-        dados_fim = request.form["dados_fim"]
+        origem = request.form["origem"]
+        destino = request.form["destino"]
+        data_inicio = request.form["data_inicio"]
+        data_fim = request.form["data_fim"]
         distancia_total = request.form["distancia_total"]
         status_viagem = request.form["status_viagem"]
-        cad_viagens(dados_inicio, dados_fim, distancia_total, status_viagem)  # Chamada da função para cadastrar viagem
+        motorista = request.form["motorista"]
+        cad_viagens(origem, destino, data_inicio, data_fim, distancia_total, status_viagem, motorista)  # Chamada da função para cadastrar viagem
         return redirect("/viagens")
     else:
         return "Erro: Método de requisição falhou ou não é POST!"
+    
+@app.route("/editar_viagem/<string:motorista>", methods=["GET", "POST"])
+def editar_viagem(motorista):
+    if request.method == "GET":
+        # Chama a função para obter os detalhes da viagem pelo motorista
+        viagem_id, dados_viagem = get_viagens_por_motorista(motorista, link)
+        if dados_viagem is not None:
+            viagem = json.loads(dados_viagem)
+            return render_template("editar_viagem.html", viagem=viagem)
+        else:
+            # Se a viagem não for encontrada, redireciona para alguma página ou retorna uma mensagem
+            return "Viagem não encontrada.", 404
+    elif request.method == "POST":
+        # Processa os dados enviados do formulário de edição e atualiza a viagem
+        origem = request.form["origem"]
+        destino = request.form["destino"]
+        data_inicio = request.form["data_inicio"]
+        data_fim = request.form["data_fim"]
+        distancia_total = request.form["distancia_total"]
+        status_viagem = request.form["status_viagem"]
+        # Chama a função para atualizar a viagem
+        if atualizar_viagem(origem, destino, data_inicio, data_fim, distancia_total, status_viagem, motorista, link):
+            return redirect("/viagens")
+        else:
+            # Se a atualização falhar, redireciona para alguma página ou retorna uma mensagem
+            return "Falha ao atualizar a viagem.", 500
+
 
 if __name__ == "__main__":
     app.run(debug=True)

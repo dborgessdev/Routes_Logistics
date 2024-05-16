@@ -41,6 +41,15 @@
         .button:hover {
             background-color: #0056b3;
         }
+
+        /* Adicionando estilo para os botões de editar */
+        .editar-button {
+            background-color: #28a745;
+        }
+
+        .editar-button:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
@@ -50,10 +59,14 @@
     <ul>
         {% for viagem_id, viagem in viagens.items() %}
             <li>
-                Data de Início: {{ viagem['dados_inicio'] }}<br>
-                Data de Fim: {{ viagem['dados_fim'] }}<br>
+                Motorista: {{ viagem['motorista'] }}<br>
+                Origem: {{ viagem['origem'] }}<br>
+                Destino: {{ viagem['destino'] }}<br>
+                Data de Início: {{ viagem['data_inicio'] }}<br>
+                Data de Fim: {{ viagem['data_fim'] }}<br>
                 Distância Total: {{ viagem['distancia_total'] }}<br>
                 Status da Viagem: {{ viagem['status_viagem'] }}<br>
+                <a href="http://127.0.0.1:5000/editar_viagem/{{ viagem['motorista'] }}" class="button editar-button">Editar</a>
                 <!-- Adicione outros campos que deseja exibir -->
             </li>
         {% endfor %}
@@ -61,7 +74,7 @@
     {% else %}
     <p>Não há viagens cadastradas.</p>
     {% endif %}
-    <a href="http://127.0.0.1:5000/viagens_cadastro"><input type="submit" value="Cadastrar nova viagem"></a>
+    <a href="http://127.0.0.1:5000/viagens_cadastro"><input type="submit" class="button editar-button" value="Cadastrar nova viagem"></a>
     <a href="/" class="button">Início</a>
 </body>
 </html>

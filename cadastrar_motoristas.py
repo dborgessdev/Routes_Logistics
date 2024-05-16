@@ -9,7 +9,7 @@ link = "https://projetoflask-fb-default-rtdb.firebaseio.com/"
 """ def cad_motorista, através dessa function utilizamos as bibliotecas JSON e REQUESTS
 para o preenchimento de dados (através da variavel dados) no banco de dados do firebase da tabela de motoristas"""
 
-def cad_motoristas(nome, cpf,cnh , id_veiculo,validade_cnh):
+def cad_motoristas(nome, cpf, cnh, id_veiculo, validade_cnh):
     dados = { 'nome': nome, 'cpf':cpf, 'cnh':cnh, 'id_veiculo': id_veiculo, 'validade_cnh':	validade_cnh}
     requisicao = requests.post(f'{link}/motoristas/.json', data=json.dumps(dados))
     #criar um motorista
