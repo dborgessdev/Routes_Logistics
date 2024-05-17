@@ -20,28 +20,38 @@
         </a>
     </nav>
 	
-    <div class="container">
-    <h1>Editar Motorista</h1>
-    <h2>Informações do Motorista: {{ motorista.nome }}</h2>
-    <form action="/editar_motorista/{{ motorista['nome'] }}" method="POST">
+<div class="container">
+        <h1>Editar Motorista</h1>
+        <h2>Informações do Motorista: {{ motorista.nome }}</h2>
+        <form action="/editar_motorista/{{ motorista['nome'] }}" method="POST">
+            
+            <div class="input-box">
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cpf" name="cpf" value="{{ motorista.cpf }}">
+            </div>
+            
+            <div class="input-box">
+                <label for="cnh">CNH:</label>
+                <input type="text" id="cnh" name="cnh" value="{{ motorista.cnh }}">
+            </div>
+            
+            <div class="input-box">
+                <label for="id_veiculo">ID do Veículo:</label>
+                <input type="text" id="id_veiculo" name="id_veiculo" value="{{ motorista.id_veiculo }}">
+            </div>
+            
+            <div class="input-box">
+                <label for="validade_cnh">Validade da CNH:</label>
+                <input type="text" id="validade_cnh" name="validade_cnh" value="{{ motorista.validade_cnh }}">
+            </div>
+            
+            <!-- Adicione um campo oculto para armazenar o nome do motorista -->
+            <input type="hidden" id="nome" name="nome" value="{{ motorista.nome }}">
+            
+            <a href="/motoristas" class="button">Voltar</a>
+            <button type="submit" class="button editar-button">Salvar Alterações</button>
+        </form>
         
-        <label for="cpf">CPF:</label>
-        <input type="text" id="cpf" name="cpf" value="{{ motorista.cpf }}"><br>
-        
-        <label for="cnh">CNH:</label>
-        <input type="text" id="cnh" name="cnh" value="{{ motorista.cnh }}"><br>
-        
-        <label for="id_veiculo">ID do Veículo:</label>
-        <input type="text" id="id_veiculo" name="id_veiculo" value="{{ motorista.id_veiculo }}"><br>
-        
-        <label for="validade_cnh">Validade da CNH:</label>
-        <input type="text" id="validade_cnh" name="validade_cnh" value="{{ motorista.validade_cnh }}"><br>
-        
-        <!-- Adicione um campo oculto para armazenar o nome do motorista -->
-        <input type="hidden" id="nome" name="nome" value="{{ motorista.nome }}">
-        <a href="/motoristas" class="button">Voltar</a>
-        <button type="submit" class="button editar-button">Salvar Alterações</button>
-    </form>
     </div>
     <script>
         function responsiveNav() {

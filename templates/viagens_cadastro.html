@@ -21,27 +21,47 @@
     </nav>
     <br>
     <div class="container">
-    <h1>Cadastro de Rotas</h1>
-    <form action="/cadastrar_viagem" method="POST">
-
-        <label for="origem">Origem:</label><br>
-        <input type="text" id="origem" name="origem"><br>
-        <label for="destino">Destino:</label><br>
-        <input type="text" id="destino" name="destino"><br>
-        <label for="data_inicio">Data de Início:</label><br>
-        <input type="text" id="data_inicio" name="data_inicio"><br>
-        <label for="data_fim">Data de Fim:</label><br>
-        <input type="text" id="data_fim" name="data_fim"><br>
-        <label for="distancia_total">Distância Total:</label><br>
-        <input type="text" id="distancia_total" name="distancia_total"><br>
-        <label for="status_viagem">Status da Rota:</label><br>
-        <input type="text" id="status_viagem" name="status_viagem"><br>
-        <label for="motorista">Nome do Motorista:</label><br>
-        <input type="text" id="motorista" name="motorista"><br>
-        <br>
-        <a href="/viagens" class="button">Voltar</a>
-        <input type="submit" class="button editar-button" value="Cadastrar">
-    </form>
+        <h1>Cadastro de Rotas</h1>
+        <form action="/cadastrar_viagem" method="POST">
+    
+            <div class="input-box">
+                <label for="origem">Origem:</label>
+                <input type="text" id="origem" name="origem" placeholder="Digite local de origem">
+            </div>
+    
+            <div class="input-box">
+                <label for="destino">Destino:</label>
+                <input type="text" id="destino" name="destino" placeholder="Digite local de entrega">
+            </div>
+    
+            <div class="input-box">
+                <label for="data_inicio">Data de Início:</label>
+                <input type="text" id="data_inicio" name="data_inicio">
+            </div>
+    
+            <div class="input-box">
+                <label for="data_fim">Data de Fim:</label>
+                <input type="text" id="data_fim" name="data_fim">
+            </div>
+    
+            <div class="input-box">
+                <label for="distancia_total">Distância Total:</label>
+                <input type="text" id="distancia_total" name="distancia_total" placeholder="Digite a distância em km">
+            </div>
+    
+            <div class="input-box">
+                <label for="status_viagem">Status da Rota:</label>
+                <input type="text" id="status_viagem" name="status_viagem">
+            </div>
+    
+            <div class="input-box">
+                <label for="motorista">Nome do Motorista:</label>
+                <input type="text" id="motorista" name="motorista" placeholder="Digite o nome do motorista">
+            </div>
+    
+            <a href="/viagens" class="button">Voltar</a>
+            <input type="submit" class="button editar-button" value="Cadastrar">
+        </form>
     </div>
     <script>
         function responsiveNav() {

@@ -23,38 +23,50 @@
     </nav>
     <br>
     <div class="container">
-        <h1>Editar veiculos</h1>
+        <h1>Editar Veículos</h1>
         <h2>Motorista responsável da Viagem: {{ veiculo.placa }}</h2>
         <form action="/editar_veiculo/{{ veiculo['placa'] }}" method="POST">
-
-            <label for="placa">Placa:</label>
-            <input type="text" id="placa" name="placa" value="{{ veiculo.placa }}"><br>
-
-            <label for="marca">Marca:</label>
-            <input type="text" id="marca" name="marca" value="{{ veiculo.marca }}"><br>
-
-            <label for="modelo">Modelo:</label>
-            <input type="text" id="modelo" name="modelo" value="{{ veiculo.modelo }}"><br>
-
-            <label for="ano_fabricacao">Ano:</label>
-            <input type="text" id="ano_fabricacao" name="ano_fabricacao" value="{{ veiculo.ano_fabricacao }}"><br>
-
-            <label for="tipo_veiculo">Tipo:</label>
-            <input type="text" id="tipo_veiculo" name="tipo_veiculo" value="{{ veiculo.veiculo }}"><br>
-
-            <label for="capacidade_carga">Capacidade de Carga:</label>
-
-            <input type="text" id="capacidade_carga" name="capacidade_carga" value="{{ veiculo.capacidade_carga }}"><br>
-
-            <label for="tag_rfid">Tag RFID:</label>
-            <input type="text" id="tag_rfid" name="tag_rfid" value="{{ veiculo.tag_rfid }}"><br>
-
-            <br>
-
+    
+            <div class="input-box">
+                <label for="placa">Placa:</label>
+                <input type="text" id="placa" name="placa" value="{{ veiculo.placa }}">
+            </div>
+    
+            <div class="input-box">
+                <label for="marca">Marca:</label>
+                <input type="text" id="marca" name="marca" value="{{ veiculo.marca }}">
+            </div>
+    
+            <div class="input-box">
+                <label for="modelo">Modelo:</label>
+                <input type="text" id="modelo" name="modelo" value="{{ veiculo.modelo }}">
+            </div>
+    
+            <div class="input-box">
+                <label for="ano_fabricacao">Ano:</label>
+                <input type="text" id="ano_fabricacao" name="ano_fabricacao" value="{{ veiculo.ano_fabricacao }}">
+            </div>
+    
+            <div class="input-box">
+                <label for="tipo_veiculo">Tipo:</label>
+                <input type="text" id="tipo_veiculo" name="tipo_veiculo" value="{{ veiculo.veiculo }}">
+            </div>
+    
+            <div class="input-box">
+                <label for="capacidade_carga">Capacidade de Carga:</label>
+                <input type="text" id="capacidade_carga" name="capacidade_carga" value="{{ veiculo.capacidade_carga }}">
+            </div>
+    
+            <div class="input-box">
+                <label for="tag_rfid">Tag RFID:</label>
+                <input type="text" id="tag_rfid" name="tag_rfid" value="{{ veiculo.tag_rfid }}">
+            </div>
+    
             <a href="/veiculos" class="button editar-button">Voltar</a>
             <input type="submit" class="button editar-button" value="Salvar alterações">
         </form>
     </div>
+    
     <script>
         function responsiveNav() {
             var x = document.getElementById("myTopnav");

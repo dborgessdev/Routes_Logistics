@@ -20,28 +20,49 @@
         </a>
     </nav>
     <div class="container">
-    <h1>Cadastro de Veiculos</h1>
-    <form action="/cadastrar_veiculo" method="POST">
-
-        <label for="placa">Placa:</label><br>
-        <input type="text" id="placa" name="placa"><br>
-        <label for="marca">Marca:</label><br>
-        <input type="text" id="marca" name="marca"><br>
-        <label for="modelo">Modelo:</label><br>
-        <input type="text" id="modelo" name="modelo"><br>
-        <label for="ano_fabricacao">Ano:</label><br>
-        <input type="text" id="ano_fabricacao" name="ano_fabricacao"><br>
-        <label for="tipo_veiculo">Tipo:</label><br>
-        <input type="text" id="tipo_veiculo" name="tipo_veiculo"><br>
-        <label for="capacidade_carga" >Capacidade de Carga:</label><br>
-        <input type="text" id="capacidade_carga" name="capacidade_carga"><br>
-        <label for="tag_rfid">Tag RFID:</label><br>
-        <input type="text" id="tag_rfid" name="tag_rfid"><br>
-        <br>
-        <a href="/veiculos" class="button">Voltar</a>     
-        <input type="submit" class="button editar-button" value="Cadastrar">
-    </form>
+        <h1>Cadastro de Veículos</h1>
+        <form action="/cadastrar_veiculo" method="POST">
+    
+            <div class="input-box">
+                <label for="placa">Placa:</label>
+                <input type="text" id="placa" name="placa" placeholder="Digite a placa do veículo">
+            </div>
+    
+            <div class="input-box">
+                <label for="marca">Marca:</label>
+                <input type="text" id="marca" name="marca" placeholder="Digite a marca do veículo">
+            </div>
+    
+            <div class="input-box">
+                <label for="modelo">Modelo:</label>
+                <input type="text" id="modelo" name="modelo" placeholder="Digite o modelo do veículo">
+            </div>
+    
+            <div class="input-box">
+                <label for="ano_fabricacao">Ano:</label>
+                <input type="text" id="ano_fabricacao" name="ano_fabricacao" placeholder="Digite o ano de fabricação do veículo">
+            </div>
+    
+            <div class="input-box">
+                <label for="tipo_veiculo">Tipo:</label>
+                <input type="text" id="tipo_veiculo" name="tipo_veiculo" placeholder="Digite o modelo do véiculo">
+            </div>
+    
+            <div class="input-box">
+                <label for="capacidade_carga">Capacidade de Carga:</label>
+                <input type="text" id="capacidade_carga" name="capacidade_carga" placeholder="Digite a capacidade de carga do veículo">
+            </div>
+    
+            <div class="input-box">
+                <label for="tag_rfid">Tag RFID:</label>
+                <input type="text" id="tag_rfid" name="tag_rfid" placeholder="Digite a tag_rfid">
+            </div>
+    
+            <a href="/veiculos" class="button">Voltar</a>
+            <input type="submit" class="button editar-button" value="Cadastrar">
+        </form>
     </div>
+    
     <script>
         function responsiveNav() {
             var x = document.getElementById("myTopnav");
