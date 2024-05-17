@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Viagens</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='viagens_cadastro.css') }}">
+     <link rel="icon" href="../static/Routes Logistics.png">
 </head>
 <body>
     <nav class="navbar" id="myTopnav">
         <a href="/" class="active">Home</a>
         <a href="/motoristas">Motoristas</a>
         <a href="/viagens">Viagens</a>
-        <a href="/veiculos">Veículos</a>
+        <a href="/veiculos">Rotas</a>
         <a href="/login">Login</a>
         <a href="/logout">Logout</a>
         <a href="javascript:void(0);" class="icon" onclick="responsiveNav()">
@@ -20,7 +21,7 @@
     </nav>
     <br>
     <div class="container">
-    <h2>Cadastro de Viagens</h2>
+    <h1>Cadastro de Rotas</h1>
     <form action="/cadastrar_viagem" method="POST">
 
         <label for="origem">Origem:</label><br>
@@ -33,7 +34,7 @@
         <input type="text" id="data_fim" name="data_fim"><br>
         <label for="distancia_total">Distância Total:</label><br>
         <input type="text" id="distancia_total" name="distancia_total"><br>
-        <label for="status_viagem">Status da Viagem:</label><br>
+        <label for="status_viagem">Status da Rota:</label><br>
         <input type="text" id="status_viagem" name="status_viagem"><br>
         <label for="motorista">Nome do Motorista:</label><br>
         <input type="text" id="motorista" name="motorista"><br>

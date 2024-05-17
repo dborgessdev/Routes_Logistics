@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar e Editar Viagens</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='editar_viagem.css') }}">
+    <link rel="icon" href="../static/Routes Logistics.png">
 </head>
 
 <body>
     <nav class="navbar" id="myTopnav">
         <a href="/" class="active">Home</a>
         <a href="/motoristas">Motoristas</a>
-        <a href="/viagens">Viagens</a>
+        <a href="/viagens">Rotas</a>
         <a href="/veiculos">Veículos</a>
         <a href="/login">Login</a>
         <a href="/logout">Logout</a>
@@ -22,8 +23,8 @@
     </nav>
     <br>
     <div class="container">
-        <h1>Editar Viagens</h1>
-        <h2>Motorista responsável da Viagem: {{ viagem.motorista }}</h2>
+        <h1>Editar Rotas</h1>
+        <h2>Motorista responsável da Rota: {{ viagem.motorista }}</h2>
         <form action="/editar_viagem/{{ viagem['motorista'] }}" method="POST">
 
             <label for="origem">Origem:</label>
@@ -41,7 +42,7 @@
             <label for="distancia_total">Distância Total:</label>
             <input type="text" id="distancia_total" name="distancia_total" value="{{ viagem.distancia_total }}"><br>
 
-            <label for="status_viagem">Status da Viagem:</label>
+            <label for="status_viagem">Status da Rota:</label>
             <input type="text" id="status_viagem" name="status_viagem" value="{{ viagem.status_viagem }}"><br>
 
             <input type="hidden" id="motorista" name="motorista" value="{{ viagem.motorista }}">

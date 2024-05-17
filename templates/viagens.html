@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Viagens</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='viagens.css') }}">
+     <link rel="icon" href="../static/Routes Logistics.png">
 </head>
 
 <body>
     <nav class="navbar" id="myTopnav">
         <a href="/" class="active">Home</a>
         <a href="/motoristas">Motoristas</a>
-        <a href="/viagens">Viagens</a>
+        <a href="/viagens">Rotas</a>
         <a href="/veiculos">Veículos</a>
         <a href="/login">Login</a>
         <a href="/logout">Logout</a>
@@ -22,7 +23,7 @@
     </nav>
     <br>
     <div class="container">
-        <h1>Gerenciamento de viagens</h1>
+        <h1>Gerenciamento de rotas</h1>
         <h2>Lista de viagens</h2>
         {% if viagens %}
         <ul>
@@ -34,7 +35,7 @@
                 Data de Início: {{ viagem['data_inicio'] }}<br>
                 Data de Fim: {{ viagem['data_fim'] }}<br>
                 Distância Total: {{ viagem['distancia_total'] }}<br>
-                Status da Viagem: {{ viagem['status_viagem'] }}<br>
+                Status da Rota: {{ viagem['status_viagem'] }}<br>
                 <a href="http://127.0.0.1:5000/editar_viagem/{{ viagem['motorista'] }}"
                     class="button editar-button">Editar</a>
                 <!-- Adicione outros campos que deseja exibir -->
