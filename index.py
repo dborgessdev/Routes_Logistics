@@ -1,22 +1,27 @@
 from flask import Flask, render_template, request, redirect
 import requests
 import json
+#VEICULOS
 from buscar_veiculos import get_veiculos
-from buscar_motoristas import get_motoristas
-from buscar_viagens import get_viagens
-from buscar_cartoes import get_cartoes
-from cadastrar_cartoes import cad_cartoes
 from cadastrar_veiculos import cad_veiculos
-from cadastrar_motoristas import cad_motoristas
-from cadastrar_viagens import cad_viagens
-from get_motorista_por_nome import get_motorista_por_nome
-from atualizar_motorista import atualizar_motorista
-from get_viagens_por_motorista import get_viagens_por_motorista
-from atualizar_viagem import atualizar_viagem
 from get_veiculo_por_placa import get_veiculo_por_placa
 from atualizar_veiculo import atualizar_veiculo
-from get_cartao_por_uid import get_cartao_por_uid
-from atualizar_cartao import atualizar_cartao
+#MOTORISTAS
+from buscar_motoristas import get_motoristas
+from cadastrar_motoristas import cad_motoristas
+from get_motorista_por_nome import get_motorista_por_nome
+from atualizar_motorista import atualizar_motorista
+#VIAGENS
+from buscar_viagens import get_viagens
+from cadastrar_viagens import cad_viagens
+from get_viagens_por_motorista import get_viagens_por_motorista
+from atualizar_viagem import atualizar_viagem
+#CARTOES
+from buscar_cartoes import get_cartoes
+from cadastrar_cartoes import cad_cartoes
+
+
+
 
 app = Flask(__name__)
 link = "https://projetoflask-fb-default-rtdb.firebaseio.com/"
@@ -92,10 +97,10 @@ def motoristas():
 def motoristas_cadastro():
     return render_template("motoristas_cadastro.html")
 
-@app.route("/cadastrar_motorista", methods=["POST"])
-def cadastrar_motorista():
+@app.route("/cad_motorista", methods=["POST"])
+def cad_motorista():
     if request.method == "POST":
-        nome = request.form["nome"]
+        nome = request.form["nome"] 
         cpf = request.form["cpf"]
         cnh = request.form["cnh"]
         id_veiculo = request.form["id_veiculo"]
@@ -183,12 +188,10 @@ def editar_viagem(motorista):
             return "Falha ao atualizar a viagem.", 500
 
 #### CARTÕES ####
-
 @app.route("/cartoes")
 def cartoes():
-    requisicao_cartao, dados_cartao = get_cartoes()
-    cartoes = json.loads(dados_cartao)  # Convertendo os dados para um dicionário
-    return render_template("cartoes.html", cartoes=cartoes)
+    dados_cartao = get_cartoes()
+    return render_template("cartoes.html", cartoes=dados_cartao)
 
 @app.route("/cartoes_cadastro")
 def cartoes_cadastro():
@@ -198,18 +201,13 @@ def cartoes_cadastro():
 def cadastrar_cartao():
     if request.method == "POST":
         uid = request.form["uid"]
-        cad_cartoes(uid)  # Chamada da função para cadastrar cartão
-        return redirect("/cartoes")
+        placa_veiculo = request.form["placa_veiculo"]
+        if cad_cartoes(uid, placa_veiculo):  # Chamada da função para cadastrar cartão
+            return redirect("/cartoes")
+        else:
+            return "Erro ao cadastrar cartão!"
     else:
         return "Erro: Método de requisição falhou ou não é POST!"
-
-@app.route("/editar_cartao/<uid>")
-def editar_cartao(uid):
-    cartao_id, dados_cartao = get_cartao_por_uid(uid, link)
-    if dados_cartao:
-        return render_template("editar_cartao.html", cartao_id=cartao_id, cartao=dados_cartao)
-    else:
-        return "Cartão não encontrado!"
-
+    
 if __name__ == "__main__":
     app.run(debug=True)

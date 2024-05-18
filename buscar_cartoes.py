@@ -7,13 +7,12 @@ link = "https://projetoflask-fb-default-rtdb.firebaseio.com/"
 
 def get_cartoes():
     requisicao = requests.get(f'{link}/cartoes/.json')
-    return requisicao, requisicao.text
-
-requisicao_cartoes = requests.get(f'{link}/cartoes/.json')
-
-print(requisicao_cartoes)
-print(requisicao_cartoes.text)
+    if requisicao.status_code == 200:
+        dados = requisicao.json()
+        print(dados)  # Adicione este print para depuração
+        return dados
+    else:
+        return {}
 
 if __name__ == "__main__":
     app.run()
-
