@@ -35,8 +35,18 @@
                 <!-- Adicione outros campos que deseja exibir -->
 
                 <!-- Adicione o botão de editar -->
+                <div class="buttonsflex">
+                <span>
                 <a href="http://127.0.0.1:5000/editar_motorista/{{ motorista['nome'] }}"
                     class="button editar-button">Editar</a>
+                </span>
+                <span>
+                <form action="/deletar_motorista" method="post">
+                    <input type="hidden" name="nome" value="{{ motorista['nome'] }}">
+                    <button class="button editar-button" type="submit">Apagar</button>
+                </form>
+                </span>
+                </div>
             </li>
             {% endfor %}
         </ul>
@@ -57,4 +67,5 @@
         }
     </script>
 </body>
+
 </html>

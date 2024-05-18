@@ -35,9 +35,14 @@
                     Carga: {{ veiculo['capacidade_carga'] }}<br>
                     Tag RFID: {{ veiculo['tag_rfid'] }}
                     <br>
+                    <div class="buttonsflex">
                     <a href="http://127.0.0.1:5000/editar_veiculo/{{ veiculo['placa'] }}"
                     class="button editar-button">Editar</a>
-                    <!-- Adicione outros campos que deseja exibir -->
+                    <form action="/deletar_veiculo" method="post">
+                        <input type="hidden" name="placa" value="{{ veiculo['placa'] }}">
+                        <button class="button editar-button" type="submit">Apagar</button>
+                    </form>
+                    </div>
                 </li>
             {% endfor %}
         </ul>

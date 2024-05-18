@@ -1,10 +1,11 @@
+<!-- templates/editar_cartao.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar cartões</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='cartoes_cadastro.css') }}">
+    <title>Editar Cartão</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='editar_cartao.css') }}">
     <link rel="icon" href="../static/Routes Logistics.png">
 </head>
 <body>
@@ -21,16 +22,16 @@
         </a>
     </nav>
     <div class="container">
-        <h1>Cadastro de Cartões</h1>
-        <form action="/cadastrar_cartao" method="POST">
+        <h1>Editar Cartão</h1>
+        <form action="/editar_cartao/{{ cartao['uid'] }}" method="POST">
             <div class="input-box">
-                <label for="uid">UID do cartão:</label>
-                <input type="text" id="uid" name="uid" placeholder="Informe o UID do cartão">
+                <label for="uid">UID do Cartão:</label>
+                <input type="text" id="uid" name="uid" value="{{ cartao['uid'] }}">
             </div>
             <br>
-            <input type="submit" class="button editar-button" value="Cadastrar">
             <a href="/cartoes" class="button">Voltar</a>
-        </form>        
+            <input type="submit" class="button editar-button" value="Salvar">
+        </form>
     </div>
     <script>
         function responsiveNav() {

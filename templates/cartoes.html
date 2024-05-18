@@ -1,6 +1,6 @@
-<!-- templates/cartoes.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='cartoes.css') }}">
     <link rel="icon" href="../static/Routes Logistics.png">
 </head>
+
 <body>
     <nav class="navbar" id="myTopnav">
         <a href="/" class="active">Home</a>
         <a href="/motoristas">Motoristas</a>
-        <a href="/viagens">Viagens</a>
+        <a href="/viagens">Rotas</a>
         <a href="/veiculos">Veículos</a>
         <a href="/login">Login</a>
         <a href="/logout">Logout</a>
@@ -20,16 +21,22 @@
             <i class="fa fa-bars"></i>
         </a>
     </nav>
+    <br>
     <div class="container">
-        <h1>Cartões</h1>
+        <h1>Gerenciamento de Cartões</h1>
         <h2>Lista de Cartões</h2>
         {% if cartoes %}
         <ul>
             {% for cartao_id, cartao in cartoes.items() %}
             <li>
-                Placa: {{ cartao['placa_veiculo'] }}<br>
                 Tag UID: {{ cartao['uid'] }}<br>
-                <a href="/editar_cartao/{{ cartao_id }}" class="button editar-button">Editar</a>
+                <!-- Adicione outros campos que deseja exibir -->
+
+                <!-- Adicione o botão de editar -->
+                <a href="http://127.0.0.1:5000/editar_cartao/{{ cartao['uid'] }}"
+                    class="button editar-button">Editar</a>
+                <form action="{{ url_for('deletar_cartao_route', uid=cartao['uid']) }}" method="post" style="display:inline;">
+                <button type="submit" class="button apagar-button">Apagar</button>
             </li>
             {% endfor %}
         </ul>
@@ -37,7 +44,7 @@
         <p>Não há cartões cadastrados.</p>
         {% endif %}
         <a href="/" class="button">Início</a>
-        <a href="/cartoes_cadastro" class="button editar-button">Cadastrar novo cartão</a>
+        <a href="http://127.0.0.1:5000/cartoes_cadastro" class="button editar-button">Cadastrar novo cartão</a>
     </div>
     <script>
         function responsiveNav() {
@@ -50,4 +57,5 @@
         }
     </script>
 </body>
+
 </html>

@@ -36,8 +36,14 @@
                 Data de Fim: {{ viagem['data_fim'] }}<br>
                 Distância Total: {{ viagem['distancia_total'] }}<br>
                 Status da Rota: {{ viagem['status_viagem'] }}<br>
+                <div class="buttonsflex">
                 <a href="http://127.0.0.1:5000/editar_viagem/{{ viagem['motorista'] }}"
                     class="button editar-button">Editar</a>
+                <form action="/deletar_viagem" method="post">
+                    <input type="hidden" name="motorista" value="{{ viagem['motorista'] }}">
+                    <button  class="button editar-button" type="submit">Apagar</button>
+                </form>
+                </div>
                 <!-- Adicione outros campos que deseja exibir -->
             </li>
             {% endfor %}
@@ -59,5 +65,4 @@
         }
     </script>
 </body>
-
 </html>

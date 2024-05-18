@@ -6,19 +6,26 @@ from buscar_veiculos import get_veiculos
 from cadastrar_veiculos import cad_veiculos
 from get_veiculo_por_placa import get_veiculo_por_placa
 from atualizar_veiculo import atualizar_veiculo
+from deletar_veiculo import deletar_veiculo
 #MOTORISTAS
 from buscar_motoristas import get_motoristas
 from cadastrar_motoristas import cad_motoristas
 from get_motorista_por_nome import get_motorista_por_nome
 from atualizar_motorista import atualizar_motorista
+from deletar_motorista import deletar_motorista
 #VIAGENS
 from buscar_viagens import get_viagens
 from cadastrar_viagens import cad_viagens
 from get_viagens_por_motorista import get_viagens_por_motorista
 from atualizar_viagem import atualizar_viagem
+from deletar_viagem import deletar_viagem
 #CARTOES
 from buscar_cartoes import get_cartoes
-from cadastrar_cartoes import cad_cartoes
+from cadastrar_cartoes import cad_cartao
+from get_cartoes_por_uid import get_cartoes_por_uid
+from atualizar_cartao import atualizar_cartao
+from deletar_cartao import deletar_cartao
+
 
 
 
@@ -84,6 +91,14 @@ def editar_veiculo(placa):
         # Chama a função para atualizar o veículo
         if atualizar_veiculo(placa, marca, modelo, ano_fabricacao, tipo_veiculo, capacidade_carga, tag_rfid, link):
             return redirect("/veiculos")
+        
+@app.route("/deletar_veiculo", methods=["POST"])
+def del_deletar_veiculo():
+    placa = request.form["placa"]
+    if deletar_veiculo(placa, link):  # Passando os parâmetros corretos para deletar_veiculo
+        return redirect("/veiculos")
+    else:
+        return "Erro ao deletar veículo."
 
 #### MOTORISTAS ####
 
@@ -134,6 +149,14 @@ def editar_motorista(nome):
             # Se a atualização falhar, redireciona para alguma página de erro
             return render_template("pagina_de_erro.html")
         
+@app.route("/deletar_motorista", methods=["POST"])
+def del_deletar_motorista():
+    nome = request.form["nome"]
+    if deletar_motorista(nome, link):  # Passando os parâmetros corretos para deletar_motorista
+        return redirect("/motoristas")
+    else:
+        return "Erro ao deletar motorista."
+    
 ##### VIAGENS #####
 
 @app.route("/viagens")
@@ -186,6 +209,14 @@ def editar_viagem(motorista):
         else:
             # Se a atualização falhar, redireciona para alguma página ou retorna uma mensagem
             return "Falha ao atualizar a viagem.", 500
+        
+@app.route("/deletar_viagem", methods=["POST"])
+def del_deletar_viagem():
+    motorista = request.form["motorista"]
+    if deletar_viagem(motorista, link):  # Passando os parâmetros corretos para deletar_viagem
+        return redirect("/viagens")
+    else:
+        return "Erro ao deletar viagem."
 
 #### CARTÕES ####
 @app.route("/cartoes")
@@ -197,17 +228,40 @@ def cartoes():
 def cartoes_cadastro():
     return render_template("cartoes_cadastro.html")
 
-@app.route("/cadastrar_cartao", methods=["POST"])
+@app.route("/cadastrar_cartao", methods=["POST"])  # Rota para cadastrar cartão
 def cadastrar_cartao():
     if request.method == "POST":
-        uid = request.form["uid"]
-        placa_veiculo = request.form["placa_veiculo"]
-        if cad_cartoes(uid, placa_veiculo):  # Chamada da função para cadastrar cartão
+        uid = request.form["uid"]  # Obtendo o UID do formulário
+        if cad_cartao(uid, link):  # Chamando a função para cadastrar cartão
+            return redirect("/cartoes")  # Redirecionando após o cadastro
+        else:
+            return "Erro ao cadastrar cartão."  # Retornando mensagem de erro em caso de falha
+    else:
+        return "Erro: Método de requisição falhou ou não é POST!"  # Tratamento para método de requisição diferente de POST
+    
+@app.route("/editar_cartao/<string:uid>", methods=["GET", "POST"])
+def editar_cartao_route(uid):
+    if request.method == "GET":
+        cartao_id, dados_cartao = get_cartoes_por_uid(uid, link)
+        if dados_cartao is not None:
+            cartao = json.loads(dados_cartao)
+            return render_template("editar_cartao.html", cartao=cartao)
+        else:
+            return render_template("pagina_de_erro.html")
+    elif request.method == "POST":
+        novo_uid = request.form["uid"]
+        if atualizar_cartao(uid, novo_uid, link):
             return redirect("/cartoes")
         else:
-            return "Erro ao cadastrar cartão!"
+            return render_template("pagina_de_erro.html")
+
+@app.route("/deletar_cartao/<string:uid>", methods=["POST"])
+def deletar_cartao_route(uid):
+    if deletar_cartao(uid, link):
+        return redirect("/cartoes")
     else:
-        return "Erro: Método de requisição falhou ou não é POST!"
+        return "Erro ao deletar cartão."
+    
     
 if __name__ == "__main__":
     app.run(debug=True)

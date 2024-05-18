@@ -43,6 +43,13 @@ body {
     transition: background-color 0.3s ease;
 }
 
+.buttonsflex{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding-left: 250px;
+}
+
 .button:hover {
     background-color: #293268;
     background-image: linear-gradient(210deg, #293268 0%, #1c0d1b 46%, #181511 100%);
