@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar e Editar Cartao</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='editar_cartao.css') }}">
+    <link rel="icon" href="../static/Routes Logistics.png">
+</head>
+<body>
+    <nav class="navbar" id="myTopnav">
+        <a href="/" class="active">Home</a>
+        <a href="/motoristas">Motoristas</a>
+        <a href="/viagens">Viagens</a>
+        <a href="/veiculos">Veículos</a>
+        <a href="/login">Login</a>
+        <a href="/logout">Logout</a>
+        <a href="javascript:void(0);" class="icon" onclick="responsiveNav()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </nav>
+
+    <div class="container">
+        <h1>Editar Cartão</h1>
+        <h2>Motorista responsável da Viagem: {{ cartao.uid }}</h2>
+        <form action="/editar_cartao/{{ cartao.uid }}" method="POST">
+            <div class="input-box">
+                <label for="uid">UID:</label>
+                <input type="text" id="uid" name="uid" value="{{ cartao.uid }}">
+            </div>
+
+            <input type="hidden" id="uid" name="uid" value="{{ cartao.uid }}">
+
+            <a href="/cartoes" class="button">voltar</a>
+            <button type="submit" class="button editar-button">Salvar Alterações</button>
+        </form>
+    </div>
+
+    <script>
+        function responsiveNav() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "navbar") {
+                x.className += " responsive";
+            } else {
+                x.className = "navbar";
+            }
+        }
+    </script>
+</body>

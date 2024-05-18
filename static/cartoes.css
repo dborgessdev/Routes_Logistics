@@ -1,3 +1,4 @@
+
 .container {
     background-color: #ffffff; /* Cor de fundo branco */
     border-radius: 10px; /* Borda arredondada */
@@ -17,7 +18,7 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #293268;
-    background-image: linear-gradient(210deg, #293268 0%, #1c0d1b 46%, #181511 100%);
+    background-image: linear-gradient(210deg, #293268 0%, #1c0d1b 46%, #181511 100%); 
     margin: 0;
     padding: 0;
     background-repeat: no-repeat;
@@ -46,8 +47,7 @@ body {
     background-color: #293268;
     background-image: linear-gradient(210deg, #293268 0%, #1c0d1b 46%, #181511 100%);
 }
-
-    
+   
 
         .navbar {
             background-color: #293268;

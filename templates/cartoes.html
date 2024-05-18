@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartões</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cartoes.css') }}">
+    <link rel="icon" href="../static/Routes Logistics.png">
+</head>
+
+<body>
+    <nav class="navbar" id="myTopnav">
+        <a href="/" class="active">Home</a>
+        <a href="/motoristas">Motoristas</a>
+        <a href="/viagens">Viagens</a>
+        <a href="/veiculos">Veículos</a>
+        <a href="/login">Login</a>
+        <a href="/logout">Logout</a>
+        <a href="javascript:void(0);" class="icon" onclick="responsiveNav()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </nav>
+    <div class="container">
+        <h1>Cartões</h1>
+        <h2>Lista de Cartões</h2>
+        {% if cartoes %}
+        <ul>
+            {% for cartao_id, cartao in cartoes.items() %}
+            <li>
+                UID: {{ cartao['uid'] }}<br>
+                <a href="http://127.0.0.1:5000/editar_cartao/{{ cartao['uid'] }}"
+                    class="button editar-button">Editar</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>Não há cartões cadastradas.</p>
+        {% endif %}
+        <a href="/" class="button">Início</a>
+        <a href="http://127.0.0.1:5000/cartoes_cadastro" class="button editar-button">Cadastrar novo cartão</a>
+    </div>
+</body>
+<script>
+    function responsiveNav() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "navbar") {
+            x.className += " responsive";
+        } else {
+            x.className = "navbar";
+        }
+    }
+</script>
+</html>

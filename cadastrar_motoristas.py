@@ -12,11 +12,7 @@ para o preenchimento de dados (através da variavel dados) no banco de dados do 
 def cad_motoristas(nome, cpf, cnh, id_veiculo, validade_cnh):
     dados = { 'nome': nome, 'cpf':cpf, 'cnh':cnh, 'id_veiculo': id_veiculo, 'validade_cnh':	validade_cnh}
     requisicao = requests.post(f'{link}/motoristas/.json', data=json.dumps(dados))
-    #criar um motorista
-    """print(requisicao)
-    print(requisicao.text) 
-    pode ser usado como forma de debug; 
-    """
+
     ("Putin", "00090040013", "02523654" , "kajsdh5465aksj16","15/11/26")
 
 #colocar o site no ar

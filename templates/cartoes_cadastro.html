@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar cartões</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cartoes_cadastro.css') }}">
+    <link rel="icon" href="../static/Routes Logistics.png">
+</head>
+<body>
+    <nav class="navbar" id="myTopnav">
+        <a href="/" class="active">Home</a>
+        <a href="/motoristas">Motoristas</a>
+        <a href="/viagens">Viagens</a>
+        <a href="/veiculos">Veículos</a>
+        <a href="/cartoes">Cartões</a>
+        <a href="/login">Login</a>
+        <a href="/logout">Logout</a>
+        <a href="javascript:void(0);" class="icon" onclick="responsiveNav()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </nav>
+    <div class="container">
+        <h1>Cadastro de Cartões</h1>
+        <form action="/cadastrar_cartao" method="POST">
+            <div class="input-box">
+                <label for="uid">UID do cartão:</label>
+                <input type="text" id="uid" name="uid" placeholder="Informe o UID do cartão">
+            </div>
+            <br>
+            <a href="/motoristas" class="button">Voltar</a>
+            <input type="submit" class="button editar-button" value="Cadastrar">
+        </form>
+    </div>
+    <script>
+        function responsiveNav() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "navbar") {
+                x.className += " responsive";
+            } else {
+                x.className = "navbar";
+            }
+        }
+    </script>
+</body>
+</html>

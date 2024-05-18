@@ -4,6 +4,8 @@ import json
 from buscar_veiculos import get_veiculos
 from buscar_motoristas import get_motoristas
 from buscar_viagens import get_viagens
+from buscar_cartoes import get_cartoes
+from cadastrar_cartoes import cad_cartoes
 from cadastrar_veiculos import cad_veiculos
 from cadastrar_motoristas import cad_motoristas
 from cadastrar_viagens import cad_viagens
@@ -13,13 +15,21 @@ from get_viagens_por_motorista import get_viagens_por_motorista
 from atualizar_viagem import atualizar_viagem
 from get_veiculo_por_placa import get_veiculo_por_placa
 from atualizar_veiculo import atualizar_veiculo
+from get_cartao_por_uid import get_cartao_por_uid
+from atualizar_cartao import atualizar_cartao
 
 app = Flask(__name__)
 link = "https://projetoflask-fb-default-rtdb.firebaseio.com/"
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
 @app.route("/")
 def homepage():
     return render_template("homepage.html")
+
+#### VEICULOS ####
 
 @app.route("/veiculos")
 def veiculos():
@@ -70,6 +80,7 @@ def editar_veiculo(placa):
         if atualizar_veiculo(placa, marca, modelo, ano_fabricacao, tipo_veiculo, capacidade_carga, tag_rfid, link):
             return redirect("/veiculos")
 
+#### MOTORISTAS ####
 
 @app.route("/motoristas")
 def motoristas():
@@ -117,6 +128,8 @@ def editar_motorista(nome):
         else:
             # Se a atualização falhar, redireciona para alguma página de erro
             return render_template("pagina_de_erro.html")
+        
+##### VIAGENS #####
 
 @app.route("/viagens")
 def viagens():
@@ -168,10 +181,35 @@ def editar_viagem(motorista):
         else:
             # Se a atualização falhar, redireciona para alguma página ou retorna uma mensagem
             return "Falha ao atualizar a viagem.", 500
-        
-@app.route("/login")
-def login():
-    return render_template("login.html")
+
+#### CARTÕES ####
+
+@app.route("/cartoes")
+def cartoes():
+    requisicao_cartao, dados_cartao = get_cartoes()
+    cartoes = json.loads(dados_cartao)  # Convertendo os dados para um dicionário
+    return render_template("cartoes.html", cartoes=cartoes)
+
+@app.route("/cartoes_cadastro")
+def cartoes_cadastro():
+    return render_template("cartoes_cadastro.html")
+
+@app.route("/cadastrar_cartao", methods=["POST"])
+def cadastrar_cartao():
+    if request.method == "POST":
+        uid = request.form["uid"]
+        cad_cartoes(uid)  # Chamada da função para cadastrar cartão
+        return redirect("/cartoes")
+    else:
+        return "Erro: Método de requisição falhou ou não é POST!"
+
+@app.route("/editar_cartao/<uid>")
+def editar_cartao(uid):
+    cartao_id, dados_cartao = get_cartao_por_uid(uid, link)
+    if dados_cartao:
+        return render_template("editar_cartao.html", cartao_id=cartao_id, cartao=dados_cartao)
+    else:
+        return "Cartão não encontrado!"
 
 if __name__ == "__main__":
     app.run(debug=True)
