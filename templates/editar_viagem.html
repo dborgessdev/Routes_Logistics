@@ -80,12 +80,12 @@
 
                 <div class="input-box">
                     <label for="data_inicio">Data de Início:</label>
-                    <input type="text" id="data_inicio" name="data_inicio" value="{{ viagem.data_inicio }}">
+                    <input type="date" id="data_inicio" name="data_inicio" value="{{ viagem.data_inicio }}">
                 </div>
 
                 <div class="input-box">
                     <label for="data_fim">Data de Fim:</label>
-                    <input type="text" id="data_fim" name="data_fim" value="{{ viagem.data_fim }}">
+                    <input type="date" id="data_fim" name="data_fim" value="{{ viagem.data_fim }}">
                 </div>
 
                 <div class="input-box">
@@ -95,7 +95,11 @@
 
                 <div class="input-box">
                     <label for="status_viagem">Status da Rota:</label>
-                    <input type="text" id="status_viagem" name="status_viagem" value="{{ viagem.status_viagem }}">
+                    <select id="status_viagem" name="status_viagem">
+                        <option value="em_andamento">Em andamento</option>
+                        <option value="concluida">Concluída</option>
+                        <option value="cancelada">Cancelada</option>
+                    </select>
                 </div>
 
                 <input type="hidden" id="motorista" name="motorista" value="{{ viagem.motorista }}">
