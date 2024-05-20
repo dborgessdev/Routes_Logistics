@@ -1,22 +1,12 @@
-
-.container {
-    background-color: #ffffff; /* Cor de fundo branco */
-    border-radius: 10px; /* Borda arredondada */
-    padding: 20px; /* Espaçamento interno */
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); /* Sombra suave */
-    text-align: center; /* Centraliza o texto */
-    max-width: 800px; /* Definindo uma largura máxima */
-    margin: 150px auto 0; /* Centralizando horizontalmente e adicionando margem superior */
+/* Geral */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
 }
-
-.container-content {
-    max-width: 600px; /* Definindo uma largura máxima para o conteúdo */
-    margin: 0 auto; /* Centralizando horizontalmente */
-}
-
 
 body {
-    font-family: Arial, sans-serif;
     background-color: #293268;
     background-image: linear-gradient(210deg, #293268 0%, #1c0d1b 46%, #181511 100%);
     margin: 0;
@@ -25,12 +15,48 @@ body {
     background-attachment: fixed;
 }
 
+/* Container principal */
+.container {
+    background-color: #ffffff; /* Cor de fundo branco */
+    border-radius: 10px; /* Borda arredondada */
+    padding: 20px; /* Espaçamento interno */
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5); /* Sombra suave */
+    text-align: center; /* Centraliza o texto */
+    max-width: 800px; /* Definindo uma largura máxima */
+    margin: 150px auto 0; /* Centralizando horizontalmente e adicionando margem superior */
+}
+
 .container h1 {
     font-size: 36px;
     margin-bottom: 20px;
     color: #293268; /* Cor do texto principal */
 }
 
+.container h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #293268; /* Cor do texto principal */
+}
+
+.input-box {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-box label {
+    display: block;
+    margin-bottom: 5px;
+    color: #293268;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Botões */
 .button {
     display: inline-block;
     padding: 10px 20px;
@@ -43,82 +69,97 @@ body {
     transition: background-color 0.3s ease;
 }
 
-form label {
-    display: block;
-    margin-bottom: 10px; /* Ajuste conforme necessário */
+.button:hover {
+    background-color: #1c0d1b;
 }
 
+.editar-button {
+    background-color: #1c0d1b;
+}
 
-.button:hover {
+/* Menu Lateral */
+nav.menu-lateral {
+    width: 80px;
+    min-height: 100vh; /* Altura mínima da barra lateral igual à altura da tela */
     background-color: #293268;
     background-image: linear-gradient(210deg, #293268 0%, #1c0d1b 46%, #181511 100%);
+    padding: 40px 0 40px 1%;
+    box-shadow: 3px 0 0 #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: 0.5s;
 }
 
-.input-box {
+nav.menu-lateral.expandir {
+    width: 300px;
+}
+
+.btn-expandir {
+    width: 100%;
+    padding-left: 10px;
+}
+
+.btn-expandir > i {
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+ul {
+    padding-top: 20px; /* Espaço adicional no topo */
+    list-style-type: none;
+}
+
+ul li.item-menu {
+    transition: 0.2s;
+}
+
+ul li.ativo {
+    background-color: black;
+}
+
+ul li.item-menu:hover {
+    background: black;
+}
+
+ul li.item-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 20px 4%;
     display: flex;
-    flex-direction: column;
-    width: 100%; 
-    margin-bottom: 1.1rem; 
+    align-items: center;
+    line-height: 1;
 }
 
-.input-box input {
-    margin: 0.6rem 0;
-    padding: 0.8rem 1.2rem;
-    width: calc(100% - 2.4rem); 
-    border: none;
-    border-radius: 10px;
-    box-shadow: 1px 1px 6px #0000001c;
-    font-size: 0.8rem;
+ul li.item-menu a .txt-link {
+    margin-left: 10px;
+    transition: 0.5s;
+    opacity: 0;
 }
 
-.input-box input:hover {
-    background-color: #eeeeee75;
+nav.menu-lateral.expandir .txt-link {
+    margin-left: 20px;
+    opacity: 1;
 }
 
-.input-box input:focus-visible {
-    outline: 1px solid #424A4A;
+ul li.item-menu a .icon > i {
+    font-size: 30px;
+    margin-left: 10px;
 }
 
-.input-box label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #000000c0;
+/* Content styles */
+.content {
+    margin-left: 80px;
+    padding: 20px;
+    transition: margin-left 0.5s;
 }
 
-.input-box input::placeholder {
-    color: #000000be;
+nav.menu-lateral.expandir + .content {
+    margin-left: 300px;
 }
-    
 
-        .navbar {
-            background-color: #293268;
-            overflow: hidden;
-        }
-        
-        .navbar a {
-            float: left;
-            display: block;
-            color: #ffffff;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-            font-size: 17px;
-        }
-        
-        .navbar a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-        
-        .navbar a.active {
-            background-color: #ffffff;
-            color: black;
-        }
-        
-        .navbar .icon {
-            display: none;
-        }
-        
         @media screen and (max-width: 768px) {
             .navbar a:not(:first-child) {display: none;}
             .navbar a.icon {

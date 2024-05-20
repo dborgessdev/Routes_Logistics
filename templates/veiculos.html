@@ -6,61 +6,118 @@
     <title>Veiculos</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='veiculos.css') }}">
     <link rel="icon" href="../static/Routes Logistics.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="navbar" id="myTopnav">
-        <a href="/" class="active">Home</a>
-        <a href="/motoristas">Motoristas</a>
-        <a href="/viagens">Rotas</a>
-        <a href="/veiculos">Veículos</a>
-        <a href="/login">Login</a>
-        <a href="/logout">Logout</a>
-        <a href="javascript:void(0);" class="icon" onclick="responsiveNav()">
-            <i class="fa fa-bars"></i>
-        </a>
-    </nav>
-    <br>
-    <div class="container">
-    <h1>Gerenciamento de veículos</h1>
-    <h2>Lista de Veiculos</h2>
-    {% if veiculos %}
+    <nav class="menu-lateral" id="myTopnav">
+        <div class="btn-expandir">
+            <i class="bi bi-list" id="btn-exp"></i>
+        </div>
         <ul>
-            {% for veiculo_id, veiculo in veiculos.items() %}
-                <li>
-                    Placa: {{ veiculo['placa'] }}<br>
-                    Marca: {{ veiculo['marca'] }}<br>
-                    Modelo: {{ veiculo['modelo'] }}<br>
-                    Ano: {{ veiculo['ano_fabricacao'] }}<br>
-                    Tipo: {{ veiculo['tipo_veiculo'] }}<br>
-                    Carga: {{ veiculo['capacidade_carga'] }}<br>
-                    Tag RFID: {{ veiculo['tag_rfid'] }}
-                    <br>
-                    <div class="buttonsflex">
-                    <a href="http://127.0.0.1:5000/editar_veiculo/{{ veiculo['placa'] }}"
-                    class="button editar-button">Editar</a>
-                    <form action="/deletar_veiculo" method="post">
-                        <input type="hidden" name="placa" value="{{ veiculo['placa'] }}">
-                        <button class="button editar-button" type="submit">Apagar</button>
-                    </form>
-                    </div>
-                </li>
-            {% endfor %}
+            <li class="item-menu">
+                <a href="/">
+                    <span class="icon"><i class="bi bi-house-door"></i></span>
+                    <span class="txt-link">Home</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/motoristas">
+                    <span class="icon"><i class="bi bi-file-earmark-person"></i></span>
+                    <span class="txt-link">Motoristas</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/viagens">
+                    <span class="icon"><i class="bi bi-sign-turn-right-fill"></i></span>
+                    <span class="txt-link">Rotas</span>
+                </a>
+            </li>
+            <li class="item-menu ativo">
+                <a href="/veiculos">
+                    <span class="icon"><i class="bi bi-car-front-fill"></i></span>
+                    <span class="txt-link">Veículos</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/cartoes">
+                    <span class="icon"><i class="bi bi-card-list"></i></span>
+                    <span class="txt-link">Cartões</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/login">
+                    <span class="icon"><i class="bi bi-person-circle"></i></span>
+                    <span class="txt-link">Login</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/logout">
+                    <span class="icon"><i class="bi bi-box-arrow-left"></i></span>
+                    <span class="txt-link">Logout</span>
+                </a>
+            </li>
         </ul>
-    {% else %}
-    <p>Não há veículos cadastrados.</p>
-    {% endif %}
-    <a href="/" class="button editar-button">Início</a>
-    <a href="http://127.0.0.1:5000/veiculos_cadastro"><input type="submit" class="button editar-button" value="Cadastrar novo veiculo"></a>
+    </nav>
+
+    <div class="content">
+        <div class="container">
+            <h1>Gerenciamento de veículos</h1>
+            <h2>Lista de Veículos</h2>
+            {% if veiculos %}
+                <ul>
+                    {% for veiculo_id, veiculo in veiculos.items() %}
+                        <li>
+                            Placa: {{ veiculo['placa'] }}<br>
+                            Marca: {{ veiculo['marca'] }}<br>
+                            Modelo: {{ veiculo['modelo'] }}<br>
+                            Ano: {{ veiculo['ano_fabricacao'] }}<br>
+                            Tipo: {{ veiculo['tipo_veiculo'] }}<br>
+                            Carga: {{ veiculo['capacidade_carga'] }}<br>
+                            Tag RFID: {{ veiculo['tag_rfid'] }}
+                            <br>
+                            <div class="buttonsflex">
+                            <a href="http://127.0.0.1:5000/editar_veiculo/{{ veiculo['placa'] }}"
+                            class="button editar-button">Editar</a>
+                            <form action="/deletar_veiculo" method="post">
+                                <input type="hidden" name="placa" value="{{ veiculo['placa'] }}">
+                                <button class="button editar-button" type="submit">Apagar</button>
+                            </form>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+            <p>Não há veículos cadastrados.</p>
+            {% endif %}
+            <a href="/" class="button editar-button">Início</a>
+            <a href="http://127.0.0.1:5000/veiculos_cadastro"><input type="submit" class="button editar-button" value="Cadastrar novo veículo"></a>
+        </div>
     </div>
+
     <script>
-        function responsiveNav() {
-            var x = document.getElementById("myTopnav");
-            if (x.className === "navbar") {
-                x.className += " responsive";
-            } else {
-                x.className = "navbar";
-            }
+        //Seleciona os itens clicado
+        var menuItem = document.querySelectorAll('.item-menu')
+
+        function selectLink(){
+            menuItem.forEach((item)=>
+                item.classList.remove('ativo')
+            )
+            this.classList.add('ativo')
         }
+
+        menuItem.forEach((item)=>
+            item.addEventListener('click', selectLink)
+        )
+
+        //Expandir o menu
+
+        var btnExp = document.querySelector('#btn-exp')
+        var menuSide = document.querySelector('.menu-lateral')
+
+        btnExp.addEventListener('click', function(){
+            menuSide.classList.toggle('expandir')
+        })
     </script>
 </body>
 </html>

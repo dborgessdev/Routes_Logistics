@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='registrar.css') }}">
+    <title>Cadastra-se</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-image">
+            <img src="/static/cadastra-se.svg">
+        </div>
+        <div class="form">
+            <form action="../php/cadastre-se.php" method="post">
+                <div class="form-header">
+                    <div class="title">
+                        <h1>Cadastro de Usuário</h1>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-box">
+                        <label for="firstname">Usuário</label>
+                        <input id="firstname" type="text" name="firstname" placeholder="Digite o nome de usuário" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="email">E-mail</label>
+                        <input id="email" type="email" name="email" placeholder="Digite o e-mail" required>
+                    </div>
+                    <div class="input-box input-inline">
+                        <label for="password">Senha</label>
+                        <input id="password" type="password" name="password" placeholder="Digite a senha" required>
+                    </div>
+                    <div class="input-box input-inline">
+                        <label for="confirmPassword">Confirme sua Senha</label>
+                        <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirme a senha novamente" required>
+                    </div>
+                    <div class="input-box">
+                        <label>Tipo de Usuário</label>
+                        <div class="user-type">
+                            <input type="radio" id="admin" name="userType" value="admin" required>
+                            <label for="admin">Admin</label>
+                            <input type="radio" id="motorista" name="userType" value="motorista" required>
+                            <label for="motorista">Motorista</label>
+                        </div>
+                </div>
+                <div class="continue-button">
+                    <button type="submit"><a href="#">Cadastrar</a> </button>
+                </div>
+
+                <br>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

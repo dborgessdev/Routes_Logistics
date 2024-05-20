@@ -1,4 +1,3 @@
-<!-- templates/editar_cartao.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -7,19 +6,57 @@
     <title>Editar Cartão</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='editar_cartao.css') }}">
     <link rel="icon" href="../static/Routes Logistics.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
 <body>
-    <nav class="navbar" id="myTopnav">
-        <a href="/" class="active">Home</a>
-        <a href="/motoristas">Motoristas</a>
-        <a href="/viagens">Viagens</a>
-        <a href="/veiculos">Veículos</a>
-        <a href="/cartoes">Cartões</a>
-        <a href="/login">Login</a>
-        <a href="/logout">Logout</a>
-        <a href="javascript:void(0);" class="icon" onclick="responsiveNav()">
-            <i class="fa fa-bars"></i>
-        </a>
+    <nav class="menu-lateral">
+        <div class="btn-expandir" onclick="responsiveNav()">
+            <i class="bi bi-list" id="btn-exp"></i>
+        </div>
+        <ul>
+            <li class="item-menu">
+                <a href="/" class="active">
+                    <span class="icon"><i class="bi bi-house-door"></i></span>
+                    <span class="txt-link">Home</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/motoristas">
+                    <span class="icon"><i class="bi bi-file-earmark-person"></i></span>
+                    <span class="txt-link">Motoristas</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/viagens">
+                    <span class="icon"><i class="bi bi-sign-turn-right-fill"></i></span>
+                    <span class="txt-link">Rotas</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/veiculos">
+                    <span class="icon"><i class="bi bi-car-front-fill"></i></span>
+                    <span class="txt-link">Veículos</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/cartoes">
+                    <span class="icon"><i class="bi bi-credit-card"></i></span>
+                    <span class="txt-link">Cartões</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/login">
+                    <span class="icon"><i class="bi bi-person-circle"></i></span>
+                    <span class="txt-link">Login</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="/logout">
+                    <span class="icon"><i class="bi bi-box-arrow-left"></i></span>
+                    <span class="txt-link">Logout</span>
+                </a>
+            </li>
+        </ul>
     </nav>
     <div class="container">
         <h1>Editar Cartão</h1>
@@ -34,14 +71,28 @@
         </form>
     </div>
     <script>
-        function responsiveNav() {
-            var x = document.getElementById("myTopnav");
-            if (x.className === "navbar") {
-                x.className += " responsive";
-            } else {
-                x.className = "navbar";
-            }
+        //Seleciona os itens clicado
+        var menuItem = document.querySelectorAll('.item-menu')
+
+        function selectLink(){
+            menuItem.forEach((item)=>
+                item.classList.remove('ativo')
+            )
+            this.classList.add('ativo')
         }
+
+        menuItem.forEach((item)=>
+            item.addEventListener('click', selectLink)
+        )
+
+        //Expandir o menu
+
+        var btnExp = document.querySelector('#btn-exp')
+        var menuSide = document.querySelector('.menu-lateral')
+
+        btnExp.addEventListener('click', function(){
+            menuSide.classList.toggle('expandir')
+        })
     </script>
 </body>
 </html>
