@@ -124,3 +124,19 @@ ul li.item-menu a .icon > i {
     font-size: 30px;
     margin-left: 10px;
 }
+
+table {
+    width: 100%; /* Define a largura da tabela como 100% */
+    border-collapse: collapse;
+    margin: 20px auto; /* Centraliza a tabela dentro do container */
+}
+
+th, td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}

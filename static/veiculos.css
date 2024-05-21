@@ -1,5 +1,5 @@
-/* Geral */
-* {
+ /* Geral */
+ * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -22,7 +22,7 @@ body {
     padding: 20px; /* Espaçamento interno */
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5); /* Sombra suave */
     text-align: center; /* Centraliza o texto */
-    max-width: 800px; /* Definindo uma largura máxima */
+    max-width: 820px; /* Definindo uma largura máxima */
     margin: 150px auto 0; /* Centralizando horizontalmente e adicionando margem superior */
 }
 
@@ -77,7 +77,8 @@ body {
     display: flex;
     align-items: center;
     text-align: center;
-    padding-left: 250px;
+    justify-content: center;
+    gap: 10px;
 }
 
 .editar-button {
@@ -167,25 +168,44 @@ nav.menu-lateral.expandir + .content {
     margin-left: 300px;
 }
 
-        @media screen and (max-width: 768px) {
-            .navbar a:not(:first-child) {display: none;}
-            .navbar a.icon {
-                float: right;
-                display: block;
-            }
-        }
-        
-        @media screen and (max-width: 768px) {
-            .navbar.responsive {position: relative;}
-            .navbar.responsive .icon {
-                position: absolute;
-                right: 0;
-                top: 0;
-            }
-            .navbar.responsive a {
-                float: none;
-                display: block;
-                text-align: left;
-            }
-        }
-        
+
+
+/* Tabela */
+/* Tabela */
+table {
+    width: 100%; /* Define a largura da tabela como 100% */
+    border-collapse: collapse;
+    margin: 20px auto; /* Centraliza a tabela dentro do container */
+}
+
+th, td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+@media screen and (max-width: 768px) {
+    .navbar a:not(:first-child) {display: none;}
+    .navbar a.icon {
+        float: right;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .navbar.responsive {position: relative;}
+    .navbar.responsive .icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .navbar.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+}

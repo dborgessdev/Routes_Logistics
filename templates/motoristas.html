@@ -64,35 +64,48 @@
     <br>
     <div class="container">
         <h1>Gerenciamento de motoristas</h1>
-        <h2>Lista de Motoristas</h2>
-        {% if motoristas %}
-        <ul>
-            {% for motorista_id, motorista in motoristas.items() %}
-            <li>
-                Nome: {{ motorista['nome'] }}<br>
-                CPF: {{ motorista['cpf'] }}<br>
-                CNH: {{ motorista['cnh'] }}<br>
-                <!-- Adicione outros campos que deseja exibir -->
+<h2>Lista de Motoristas</h2>
+{% if motoristas %}
+<table>
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>CNH</th>
+            <!-- Adicione outras colunas conforme necessário -->
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for motorista_id, motorista in motoristas.items() %}
+        <tr>
+            <td>{{ motorista['nome'] }}</td>
+            <td>{{ motorista['cpf'] }}</td>
+            <td>{{ motorista['cnh'] }}</td>
+            <!-- Adicione outras células conforme necessário -->
 
-                <!-- Adicione o botão de editar -->
+            <!-- Botões de ação -->
+            <td>
                 <div class="buttonsflex">
-                <span>
-                <a href="http://127.0.0.1:5000/editar_motorista/{{ motorista['nome'] }}"
-                    class="button editar-button">Editar</a>
-                </span>
-                <span>
-                <form action="/deletar_motorista" method="post">
-                    <input type="hidden" name="nome" value="{{ motorista['nome'] }}">
-                    <button class="button editar-button" type="submit">Apagar</button>
-                </form>
-                </span>
+                    <span>
+                        <a href="http://127.0.0.1:5000/editar_motorista/{{ motorista['nome'] }}" class="button editar-button">Editar</a>
+                    </span>
+                    <span>
+                        <form action="/deletar_motorista" method="post">
+                            <input type="hidden" name="nome" value="{{ motorista['nome'] }}">
+                            <button class="button editar-button" type="submit">Apagar</button>
+                        </form>
+                    </span>
                 </div>
-            </li>
-            {% endfor %}
-        </ul>
-        {% else %}
-        <p>Não há motoristas cadastrados.</p>
-        {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Não há motoristas cadastrados.</p>
+{% endif %}
+
         <a href="/" class="button">Início</a>
         <a href="http://127.0.0.1:5000/motoristas_cadastro" class="button editar-button">Cadastrar novo motorista</a>
     </div>

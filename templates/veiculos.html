@@ -63,33 +63,49 @@
     <div class="content">
         <div class="container">
             <h1>Gerenciamento de veículos</h1>
-            <h2>Lista de Veículos</h2>
-            {% if veiculos %}
-                <ul>
-                    {% for veiculo_id, veiculo in veiculos.items() %}
-                        <li>
-                            Placa: {{ veiculo['placa'] }}<br>
-                            Marca: {{ veiculo['marca'] }}<br>
-                            Modelo: {{ veiculo['modelo'] }}<br>
-                            Ano: {{ veiculo['ano_fabricacao'] }}<br>
-                            Tipo: {{ veiculo['tipo_veiculo'] }}<br>
-                            Carga: {{ veiculo['capacidade_carga'] }}<br>
-                            Tag RFID: {{ veiculo['tag_rfid'] }}
-                            <br>
-                            <div class="buttonsflex">
-                            <a href="http://127.0.0.1:5000/editar_veiculo/{{ veiculo['placa'] }}"
-                            class="button editar-button">Editar</a>
-                            <form action="/deletar_veiculo" method="post">
-                                <input type="hidden" name="placa" value="{{ veiculo['placa'] }}">
-                                <button class="button editar-button" type="submit">Apagar</button>
-                            </form>
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-            <p>Não há veículos cadastrados.</p>
-            {% endif %}
+<h2>Lista de Veículos</h2>
+{% if veiculos %}
+<table>
+    <thead>
+        <tr>
+            <th>Placa</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Ano</th>
+            <th>Tipo</th>
+            <th>Carga</th>
+            <th>Tag RFID</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for veiculo_id, veiculo in veiculos.items() %}
+        <tr>
+            <td>{{ veiculo['placa'] }}</td>
+            <td>{{ veiculo['marca'] }}</td>
+            <td>{{ veiculo['modelo'] }}</td>
+            <td>{{ veiculo['ano_fabricacao'] }}</td>
+            <td>{{ veiculo['tipo_veiculo'] }}</td>
+            <td>{{ veiculo['capacidade_carga'] }}</td>
+            <td>{{ veiculo['tag_rfid'] }}</td>
+            <!-- Botões de ação -->
+            <td>
+                <div class="buttonsflex">
+                    <a href="http://127.0.0.1:5000/editar_veiculo/{{ veiculo['placa'] }}" class="button editar-button">Editar</a>
+                    <form action="/deletar_veiculo" method="post">
+                        <input type="hidden" name="placa" value="{{ veiculo['placa'] }}">
+                        <button class="button editar-button" type="submit">Apagar</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Não há veículos cadastrados.</p>
+{% endif %}
+
             <a href="/" class="button editar-button">Início</a>
             <a href="http://127.0.0.1:5000/veiculos_cadastro"><input type="submit" class="button editar-button" value="Cadastrar novo veículo"></a>
         </div>
