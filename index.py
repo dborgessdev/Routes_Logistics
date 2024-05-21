@@ -255,6 +255,7 @@ def editar_cartao_route(uid):
         else:
             return render_template("pagina_de_erro.html")
 
+
 @app.route("/deletar_cartao/<string:uid>", methods=["POST"])
 def deletar_cartao_route(uid):
     if deletar_cartao(uid, link):
