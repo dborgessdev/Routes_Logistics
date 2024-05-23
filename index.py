@@ -33,10 +33,10 @@ from deletar_cartao import deletar_cartao
 
 
 
-
-
 app = Flask(__name__)
 link = "https://projetoflask-fb-default-rtdb.firebaseio.com/"
+
+
 
 @app.route("/login")
 def login():
@@ -160,11 +160,18 @@ def del_deletar_veiculo():
 
 #### MOTORISTAS ####
 
-@app.route("/motoristas")
+@app.route('/motoristas')
 def motoristas():
-    requisicao_motoristas, dados_motoristas = get_motoristas()
-    motoristas = json.loads(dados_motoristas)  # Convertendo os dados para um dicionário
-    return render_template("motoristas.html", motoristas=motoristas)
+    # Modifique esta parte para obter os dados dos motoristas do seu banco de dados
+    # Exemplo: dados_motoristas = obter_dados_motoristas_do_banco()
+    dados_motoristas = None
+
+    if dados_motoristas:
+        motoristas = json.loads(dados_motoristas)  # Convertendo os dados para um dicionário
+    else:
+        motoristas = {}
+
+    return render_template('motoristas.html', motoristas=motoristas)
 
 @app.route("/motoristas_cadastro")
 def motoristas_cadastro():
@@ -223,11 +230,12 @@ def viagens():
     viagens = json.loads(dados_viagem)  # Convertendo os dados para um dicionário
     return render_template("viagens.html", viagens=viagens)
 
+
 @app.route('/viagens_cadastro')
 def viagens_cadastro():
-    link_motorista = f'{link}/motoristas.json'
-    requisicao = requests.get(link_motorista)
-    motoristas = requisicao.json()
+    has_motoristas, motoristas = get_motoristas()
+    if not has_motoristas:
+        return render_template('sem_motoristas.html')
     return render_template('viagens_cadastro.html', motoristas=motoristas)
 
 @app.route("/cadastrar_viagem", methods=["POST"])

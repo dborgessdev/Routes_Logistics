@@ -1,4 +1,3 @@
-
 /* Geral */
 * {
     margin: 0;
@@ -125,60 +124,3 @@ ul li.item-menu a .icon > i {
     font-size: 30px;
     margin-left: 10px;
 }
-
-/* Content styles */
-.content {
-    margin-left: 80px;
-    padding: 20px;
-    transition: margin-left 0.5s;
-}
-
-nav.menu-lateral.expandir + .content {
-    margin-left: 300px;
-}
-
-/* Flex container for buttons */
-.buttonsflex {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-table {
-    width: 100%; /* Define a largura da tabela como 100% */
-    border-collapse: collapse;
-    margin: 20px auto; /* Centraliza a tabela dentro do container */
-}
-
-th, td {
-    border: 1px solid #000;
-    padding: 8px;
-    text-align: left;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-        @media screen and (max-width: 768px) {
-            .navbar a:not(:first-child) {display: none;}
-            .navbar a.icon {
-                float: right;
-                display: block;
-            }
-        }
-        
-        @media screen and (max-width: 768px) {
-            .navbar.responsive {position: relative;}
-            .navbar.responsive .icon {
-                position: absolute;
-                right: 0;
-                top: 0;
-            }
-            .navbar.responsive a {
-                float: none;
-                display: block;
-                text-align: left;
-            }
-        }
-        

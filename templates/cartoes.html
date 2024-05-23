@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='cartoes.css') }}">
     <link rel="icon" href="../static/Routes Logistics.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <nav class="menu-lateral">
@@ -40,7 +41,7 @@
             </li>
             <li class="item-menu">
                 <a href="/cartoes">
-                    <span class="icon"><i class="bi bi-credit-card"></i></span>
+                    <span class="icon"><i class="bi bi-card-list"></i></span>
                     <span class="txt-link">Cartões</span>
                 </a>
             </li>
@@ -63,6 +64,8 @@
         <h2>Lista de Cartões</h2>
         {% if cartoes %}
         <table>
+            <ul id="cartoes-list"></ul>
+
             <thead>
                 <tr>
                     <th>Tag UID</th>
@@ -117,5 +120,6 @@
             menuSide.classList.toggle('expandir')
         })
     </script>
+    <script src="{{ url_for('static', filename='update_cartoes.js') }}"></script>
 </body>
 </html>
