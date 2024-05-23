@@ -1,6 +1,11 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, send_file
 import requests
 import json
+
+#DASHBOARD IMPORTS
+import pandas as pd
+import plotly.express as px
+from io import BytesIO
 #VEICULOS
 from buscar_veiculos import get_veiculos
 from cadastrar_veiculos import cad_veiculos
@@ -41,6 +46,59 @@ def login():
 def homepage():
     return render_template("homepage.html")
 
+#### DASHBOARD ####
+# Rota para exibir o dashboard
+@app.route('/dashboard')
+def dashboard_view():
+    # Pegar os dados de viagens do Firebase
+    requisicao = requests.get(f'{link}/viagens.json')
+    viagens = requisicao.json()
+    
+    # Criar um DataFrame a partir dos dados
+    data = []
+    for key, viagem in viagens.items():
+        motorista = viagem.get('motorista')
+        distancia = float(viagem.get('distancia_total', 0))
+        data.append([motorista, distancia])
+    
+    df = pd.DataFrame(data, columns=['Motorista', 'Distancia'])
+    
+    # Gerar o gráfico
+    fig = px.bar(df, x='Motorista', y='Distancia', title='Distância Total por Motorista')
+    
+    # Gerar o gráfico em HTML
+    graph_html = fig.to_html(full_html=False)
+    
+    return render_template('dashboard.html', graph_html=graph_html)
+
+# Rota para baixar o arquivo Excel
+@app.route('/download_excel')
+def download_excel():
+    import pandas as pd
+    import io
+    
+    # Obter dados das viagens do Firebase
+    response = requests.get(f'{link}/viagens.json')
+    viagens = response.json()
+    
+    # Processar os dados
+    data = []
+    for key, viagem in viagens.items():
+        motorista = viagem.get('motorista')
+        distancia_total = float(viagem.get('distancia_total', 0))
+        data.append({'Motorista': motorista, 'Distancia Total': distancia_total})
+    
+    df = pd.DataFrame(data)
+    output = io.BytesIO()
+    
+    # Gerar arquivo Excel com Pandas
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        df.to_excel(writer, index=False, sheet_name='Viagens')
+    
+    output.seek(0)
+    
+    return send_file(output, mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                     download_name='viagens.xlsx', as_attachment=True)
 #### VEICULOS ####
 
 @app.route("/veiculos")
@@ -165,9 +223,12 @@ def viagens():
     viagens = json.loads(dados_viagem)  # Convertendo os dados para um dicionário
     return render_template("viagens.html", viagens=viagens)
 
-@app.route("/viagens_cadastro")
+@app.route('/viagens_cadastro')
 def viagens_cadastro():
-    return render_template("viagens_cadastro.html")
+    link_motorista = f'{link}/motoristas.json'
+    requisicao = requests.get(link_motorista)
+    motoristas = requisicao.json()
+    return render_template('viagens_cadastro.html', motoristas=motoristas)
 
 @app.route("/cadastrar_viagem", methods=["POST"])
 def cadastrar_viagem():
