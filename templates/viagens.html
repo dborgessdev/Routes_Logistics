@@ -64,48 +64,48 @@
     <div class="content">
         <div class="container">
             <h1>Gerenciamento de rotas</h1>
-<h2>Lista de viagens</h2>
-{% if viagens %}
-<table>
-    <thead>
-        <tr>
-            <th>Motorista</th>
-            <th>Origem</th>
-            <th>Destino</th>
-            <th>Data de Início</th>
-            <th>Data de Fim</th>
-            <th>Distância Total</th>
-            <th>Status da Rota</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for viagem_id, viagem in viagens.items() %}
-        <tr>
-            <td>{{ viagem['motorista'] }}</td>
-            <td>{{ viagem['origem'] }}</td>
-            <td>{{ viagem['destino'] }}</td>
-            <td>{{ viagem['data_inicio'] }}</td>
-            <td>{{ viagem['data_fim'] }}</td>
-            <td>{{ viagem['distancia_total'] }}</td>
-            <td>{{ viagem['status_viagem'] }}</td>
-            <!-- Botões de ação -->
-            <td>
-                <div class="buttonsflex">
-                    <a href="http://127.0.0.1:5000/editar_viagem/{{ viagem['motorista'] }}" class="button editar-button">Editar</a>
-                    <form action="/deletar_viagem" method="post">
-                        <input type="hidden" name="motorista" value="{{ viagem['motorista'] }}">
-                        <button class="button editar-button" type="submit">Apagar</button>
-                    </form>
-                </div>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{% else %}
-<p>Não há viagens cadastradas.</p>
-{% endif %}
+            <h2>Lista de viagens</h2>
+            {% if viagens %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Motorista</th>
+                        <th>Origem</th>
+                        <th>Destino</th>
+                        <th>Data de Início</th>
+                        <th>Data de Fim</th>
+                        <th>Distância Total</th>
+                        <th>Status da Rota</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for viagem_id, viagem in viagens.items() %}
+                    <tr>
+                        <td>{{ viagem['motorista'] }}</td>
+                        <td>{{ viagem['origem'] }}</td>
+                        <td>{{ viagem['destino'] }}</td>
+                        <td>{{ viagem['data_inicio'] }}</td>
+                        <td>{{ viagem['data_fim'] }}</td>
+                        <td>{{ viagem['distancia_total'] }}</td>
+                        <td>{{ viagem['status_viagem'] }}</td>
+                        <!-- Botões de ação -->
+                        <td>
+                            <div class="buttonsflex">
+                                <a href="http://127.0.0.1:5000/editar_viagem/{{ viagem['motorista'] }}" class="button editar-button">Editar</a>
+                                <form action="/deletar_viagem" method="post">
+                                    <input type="hidden" name="motorista" value="{{ viagem['motorista'] }}">
+                                    <button class="button editar-button" type="submit">Apagar</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>Não há viagens cadastradas.</p>
+            {% endif %}
             <a href="/" class="button">Início</a>
             <a href="http://127.0.0.1:5000/viagens_cadastro" class="button editar-button">Cadastrar nova viagem</a>
         </div>
