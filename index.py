@@ -50,11 +50,13 @@ def homepage():
 # Rota para exibir o dashboard
 @app.route('/dashboard')
 def dashboard_view():
-    # Pegar os dados de viagens do Firebase
     requisicao = requests.get(f'{link}/viagens.json')
     viagens = requisicao.json()
     
-    # Criar um DataFrame a partir dos dados
+    if not viagens:
+        # Se não houver viagens, renderize uma página informando isso
+        return render_template('sem_viagens.html')
+    
     data = []
     for key, viagem in viagens.items():
         motorista = viagem.get('motorista')
@@ -62,11 +64,7 @@ def dashboard_view():
         data.append([motorista, distancia])
     
     df = pd.DataFrame(data, columns=['Motorista', 'Distancia'])
-    
-    # Gerar o gráfico
     fig = px.bar(df, x='Motorista', y='Distancia', title='Distância Total por Motorista')
-    
-    # Gerar o gráfico em HTML
     graph_html = fig.to_html(full_html=False)
     
     return render_template('dashboard.html', graph_html=graph_html)
