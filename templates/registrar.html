@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,14 +7,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='registrar.css') }}">
     <title>Cadastra-se</title>
 </head>
-
 <body>
     <div class="container">
         <div class="form-image">
             <img src="/static/cadastra-se.svg">
         </div>
         <div class="form">
-            <form action="../php/cadastre-se.php" method="post">
+            <form method="post" action="{{ url_for('registrar') }}">
                 <div class="form-header">
                     <div class="title">
                         <h1>Cadastro de Usuário</h1>
@@ -46,15 +44,14 @@
                             <input type="radio" id="motorista" name="userType" value="motorista" required>
                             <label for="motorista">Motorista</label>
                         </div>
+                    </div>
                 </div>
                 <div class="continue-button">
-                    <button type="submit"><a href="#">Cadastrar</a> </button>
+                    <button type="submit">Cadastrar</button>
                 </div>
-
                 <br>
             </form>
         </div>
     </div>
 </body>
-
 </html>

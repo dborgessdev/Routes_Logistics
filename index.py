@@ -1,7 +1,12 @@
-from flask import Flask, render_template, request, redirect, send_file
+from flask import Flask, render_template, request, redirect, send_file, url_for, flash, session
 import requests
 import json
-
+#AUTH IMPORTS
+import firebase_admin
+from firebase_admin import auth
+import firebase_config  # Importando as configurações do Firebase
+import pyrebase
+from functools import wraps
 #DASHBOARD IMPORTS
 import pandas as pd
 import plotly.express as px
@@ -35,17 +40,101 @@ from deletar_cartao import deletar_cartao
 
 app = Flask(__name__)
 link = "https://projetoflask-fb-default-rtdb.firebaseio.com/"
+app.secret_key = 'p1y2t3h4o5n6p1y2t3h4o5n6p1y2t3h4o5n6'  # Use uma chave secreta mais segura em produção
+
+firebase_config = {
+
+'apiKey': "AIzaSyB4D4mZeuXfT1fSCqpkSljotPWh3YfjCGY",
+'authDomain': "projetoflask-fb.firebaseapp.com",
+'databaseURL': "https://projetoflask-fb-default-rtdb.firebaseio.com",
+'projectId': "projetoflask-fb",
+'storageBucket': "projetoflask-fb.appspot.com",
+'messagingSenderId': "134324160615",
+'appId': "1:134324160615:web:8ed0bb84526c5c146b6cc2",
+'measurementId': "G-ZVZ9B7PQP3"
+};
 
 
+firebase = pyrebase.initialize_app(firebase_config)
+auth_pyrebase = firebase.auth()
 
-@app.route("/login")
+#### AUTH ##### Rota para a página de login
+@app.route('/', methods=['GET', 'POST'])
 def login():
-    return render_template("login.html")
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['senha']
+        
+        try:
+            # Simulação de verificação de senha
+            user = auth.get_user_by_email(email)
+            session['user'] = user.uid
+            return redirect(url_for('show_dashboard'))
+        except Exception as e:
+            flash('Credenciais inválidas, tente novamente.')
+            return redirect(url_for('login'))
+    
+    return render_template('login.html')
 
-@app.route("/")
-def homepage():
-    return render_template("homepage.html")
+# Rota para a página de registro
+@app.route('/registrar', methods=['GET', 'POST'])
+def registrar():
+    if request.method == 'POST':
+        username = request.form['firstname']
+        email = request.form['email']
+        password = request.form['password']
+        user_type = request.form['userType']
+        
+        try:
+            user = auth.create_user(
+                email=email,
+                password=password,
+                display_name=username
+            )
+            flash('Usuário registrado com sucesso!')
+            return redirect(url_for('login'))
+        except Exception as e:
+            flash('Erro ao registrar usuário, tente novamente.')
+            return redirect(url_for('registrar'))
+    
+    return render_template('registrar.html')
 
+# Rota para logout
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('login'))
+
+# Verificação de autenticação
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user' not in session:
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+# Protegendo a rota do dashboard
+@app.route('/dashboard')
+@login_required
+def show_dashboard():
+    requisicao = requests.get(f'{link}/viagens.json')
+    viagens = requisicao.json()
+    
+    if not viagens:
+        return render_template('sem_viagens.html')
+    
+    data = []
+    for key, viagem in viagens.items():
+        motorista = viagem.get('motorista')
+        distancia = float(viagem.get('distancia_total', 0))
+        data.append([motorista, distancia])
+    
+    df = pd.DataFrame(data, columns=['Motorista', 'Distancia'])
+    fig = px.bar(df, x='Motorista', y='Distancia', title='Distância Total por Motorista')
+    graph_html = fig.to_html(full_html=False)
+    
+    return render_template('dashboard.html', graph_html=graph_html)
 #### DASHBOARD ####
 # Rota para exibir o dashboard
 @app.route('/dashboard')
@@ -159,13 +248,11 @@ def del_deletar_veiculo():
 #### MOTORISTAS ####
 
 @app.route('/motoristas')
+@login_required
 def motoristas():
-    # Modifique esta parte para obter os dados dos motoristas do seu banco de dados
-    # Exemplo: dados_motoristas = obter_dados_motoristas_do_banco()
-    dados_motoristas = None
-
-    if dados_motoristas:
-        motoristas = json.loads(dados_motoristas)  # Convertendo os dados para um dicionário
+    has_motoristas, motoristas = get_motoristas()
+    if has_motoristas:
+        motoristas = json.loads(json.dumps(motoristas))  # Convertendo para um dicionário
     else:
         motoristas = {}
 
