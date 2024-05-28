@@ -58,6 +58,8 @@ firebase_config = {
 firebase = pyrebase.initialize_app(firebase_config)
 auth_pyrebase = firebase.auth()
 
+
+
 #### AUTH ##### Rota para a página de login
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -135,6 +137,12 @@ def show_dashboard():
     graph_html = fig.to_html(full_html=False)
     
     return render_template('dashboard.html', graph_html=graph_html)
+
+@app.route('/homepage')
+@login_required
+def homepage():
+    return render_template('homepage.html')
+
 #### DASHBOARD ####
 # Rota para exibir o dashboard
 @app.route('/dashboard')
