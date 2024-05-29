@@ -13,10 +13,11 @@ import plotly.express as px
 from io import BytesIO
 #VEICULOS
 from buscar_veiculos import get_veiculos
-from cadastrar_veiculos import cad_veiculos
+from cadastrar_veiculos import cad_veiculos, VeiculoBuilder
 from get_veiculo_por_placa import get_veiculo_por_placa
 from atualizar_veiculo import atualizar_veiculo
 from deletar_veiculo import deletar_veiculo
+
 #MOTORISTAS
 from buscar_motoristas import get_motoristas
 from cadastrar_motoristas import cad_motoristas
@@ -216,8 +217,14 @@ def cadastrar_veiculo():
         tipo_veiculo = request.form["tipo_veiculo"]
         capacidade_carga = request.form["capacidade_carga"]
         tag_rfid = request.form["tag_rfid"]
-        cad_veiculos(placa, marca, modelo, ano_fabricacao, tipo_veiculo, capacidade_carga, tag_rfid)  # Chamada da função para cadastrar veículo
-        return redirect("/veiculos")
+
+        builder = VeiculoBuilder()
+        builder.placa(placa).marca(marca).modelo(modelo).ano_fabricacao(ano_fabricacao).tipo_veiculo(tipo_veiculo).capacidade_carga(capacidade_carga).tag_rfid(tag_rfid)
+        
+        if cad_veiculos(builder):
+            return redirect("/veiculos")
+        else:
+            return "Erro ao cadastrar veículo."
     else:
         return "Erro: Método de requisição falhou ou não é POST!"
     

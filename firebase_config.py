@@ -12,5 +12,5 @@ config = {
   'measurementId': "G-ZVZ9B7PQP3"
 };
 
-config = credentials.Certificate("C:\\Users\\ALUNO\\Downloads\\Nova pasta\\projetoflask\\chave_auth.json")
+config = credentials.Certificate("chave_auth.json")
 firebase_admin.initialize_app(config)

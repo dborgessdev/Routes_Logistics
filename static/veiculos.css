@@ -22,7 +22,7 @@ body {
     padding: 20px; /* Espaçamento interno */
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5); /* Sombra suave */
     text-align: center; /* Centraliza o texto */
-    max-width: 820px; /* Definindo uma largura máxima */
+    max-width: 850px; /* Definindo uma largura máxima */
     margin: 150px auto 0; /* Centralizando horizontalmente e adicionando margem superior */
 }
 

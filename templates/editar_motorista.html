@@ -21,6 +21,12 @@
                     <span class="txt-link">Home</span>
                 </a>
             </li>
+            <li class="item-menu">
+                <a href="/dashboard">
+                    <span class="icon"><i class="bi bi-columns-gap"></i></i></span>
+                    <span class="txt-link">Dashboard</span>
+                </a>
+            </li>
             <li class="item-menu ativo">
                 <a href="/motoristas">
                     <span class="icon"><i class="bi bi-file-earmark-person"></i></span>
@@ -46,9 +52,9 @@
                 </a>
             </li>
             <li class="item-menu">
-                <a href="/login">
+                <a href="/registrar">
                     <span class="icon"><i class="bi bi-person-circle"></i></span>
-                    <span class="txt-link">Login</span>
+                    <span class="txt-link">Singup</span>
                 </a>
             </li>
             <li class="item-menu">
@@ -79,7 +85,7 @@
                 </div>
                 <div class="input-box">
                     <label for="validade_cnh">Validade da CNH:</label>
-                    <input type="text" id="validade_cnh" name="validade_cnh" value="{{ motorista.validade_cnh }}">
+                    <input type="date" id="validade_cnh" name="validade_cnh" value="{{ motorista.validade_cnh }}">
                 </div>
                 <input type="hidden" id="nome" name="nome" value="{{ motorista.nome }}">
                 <a href="/motoristas" class="button">Voltar</a>

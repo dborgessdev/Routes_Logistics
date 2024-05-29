@@ -1,22 +1,54 @@
-from flask import Flask, render_template
+from flask import Flask, request, redirect
 import requests
 import json
 
 app = Flask(__name__)
 link = "https://projetoflask-fb-default-rtdb.firebaseio.com/"
 
-def cad_veiculos(placa, marca, modelo, ano_fabricacao, tipo_veiculo, capacidade_carga, tag_rfid):
-    dados = { 'placa': placa, 'marca': marca, 'modelo': modelo, 'ano_fabricacao': ano_fabricacao, 'tipo_veiculo':	tipo_veiculo, 'capacidade_carga': capacidade_carga, 'tag_rfid': tag_rfid}
+class VeiculoBuilder:
+    def __init__(self):
+        self.dados = {}
+
+    def placa(self, placa):
+        self.dados['placa'] = placa
+        return self
+
+    def marca(self, marca):
+        self.dados['marca'] = marca
+        return self
+
+    def modelo(self, modelo):
+        self.dados['modelo'] = modelo
+        return self
+
+    def ano_fabricacao(self, ano_fabricacao):
+        self.dados['ano_fabricacao'] = ano_fabricacao
+        return self
+
+    def tipo_veiculo(self, tipo_veiculo):
+        self.dados['tipo_veiculo'] = tipo_veiculo
+        return self
+
+    def capacidade_carga(self, capacidade_carga):
+        self.dados['capacidade_carga'] = capacidade_carga
+        return self
+
+    def tag_rfid(self, tag_rfid):
+        self.dados['tag_rfid'] = tag_rfid
+        return self
+
+    def build(self):
+        return self.dados
+
+def cad_veiculos(builder):
+    dados = builder.build()
     requisicao = requests.post(f'{link}/veiculos/.json', data=json.dumps(dados))
-    #criar um veiculo
-    """print(requisicao)
-    print(requisicao.text) 
-    pode ser usado como forma de debug; 
-    """
-    ("Luiz", "00090040013", "02523654" , "kajsdh5465aksj16","15/11/26", "asdasd" , "asdsadas", )
+    if requisicao.status_code == 200:
+        return True
+    else:
+        return False
 
 
-#colocar o site no ar
+
 if __name__ == "__main__":
-    #OBS: utiliza-se app.run(debug=True) para ligrar o debug, porém o console retornará o comando executado 2x gerando 2x dados para o banco de dados 
-    app.run()
+    app.run(debug=True)
