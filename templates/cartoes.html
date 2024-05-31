@@ -23,7 +23,7 @@
             </li>
             <li class="item-menu">
                 <a href="/dashboard">
-                    <span class="icon"><i class="bi bi-columns-gap"></i></i></span>
+                    <span class="icon"><i class="bi bi-columns-gap"></i></span>
                     <span class="txt-link">Dashboard</span>
                 </a>
             </li>
@@ -54,7 +54,7 @@
             <li class="item-menu">
                 <a href="/registrar">
                     <span class="icon"><i class="bi bi-person-circle"></i></span>
-                    <span class="txt-link">Singup</span>
+                    <span class="txt-link">Signup</span>
                 </a>
             </li>
             <li class="item-menu">
@@ -70,11 +70,10 @@
         <h2>Lista de Cartões</h2>
         {% if cartoes %}
         <table>
-            <ul id="cartoes-list"></ul>
-
             <thead>
                 <tr>
-                    <th>Tag UID</th>
+                    <th>Tag UID</th>~
+                    <th>Status</th>
                     <!-- Adicione outras colunas conforme necessário -->
                     <th>Ações</th>
                 </tr>
@@ -83,10 +82,11 @@
                 {% for cartao_id, cartao in cartoes.items() %}
                 <tr>
                     <td>{{ cartao['uid'] }}</td>
+                    <td>{{ cartao['status'] }}</td>
                     <!-- Adicione outras células conforme necessário -->
                     <td>
                         <!-- Botões de ação -->
-                        <a href="http://127.0.0.1:5000/editar_cartao/{{ cartao['uid'] }}" class="button editar-button">Editar</a>
+                        <a href="{{ url_for('editar_cartao', uid=cartao['uid']) }}" class="button editar-button">Editar</a>
                         <form action="{{ url_for('deletar_cartao_route', uid=cartao['uid']) }}" method="post" style="display:inline;">
                             <button type="submit" class="button apagar-button">Apagar</button>
                         </form>
@@ -97,10 +97,10 @@
         </table>
         {% else %}
         <p>Não há cartões cadastrados.</p>
-        <p>Por favor, <a href="http://127.0.0.1:5000/cartoes_cadastro">cadastre um novo cartão</a>.</p>
+        <p>Por favor, <a href="{{ url_for('cadastrar_cartao') }}">cadastre um novo cartão</a>.</p>
         {% endif %}
         <a href="/homepage" class="button">Início</a>
-        <a href="/cartoes_cadastro" class="button editar-button">Cadastrar novo cartão</a>
+        <a href="/cadastrar_cartao" class="button editar-button">Cadastrar novo cartão</a>
     </div>
     <script>
         //Seleciona os itens clicado
@@ -126,6 +126,5 @@
             menuSide.classList.toggle('expandir')
         })
     </script>
-    <script src="{{ url_for('static', filename='update_cartoes.js') }}"></script>
 </body>
 </html>

@@ -66,8 +66,17 @@
                 <input type="text" id="uid" name="uid" value="{{ cartao['uid'] }}">
             </div>
             <br>
-            <a href="/cartoes" class="button">Voltar</a>
+            <div class="input-box">
+                <label for="status">Status:</label>
+                <select id="status" name="status">
+                    <option value="Liberado" {% if cartao['status'] == 'Liberado' %} selected {% endif %}>Liberado</option>
+                    <option value="Bloqueado" {% if cartao['status'] == 'Bloqueado' %} selected {% endif %}>Bloqueado</option>
+                    <option value="Em trânsito" {% if cartao['status'] == 'Em trânsito' %} selected {% endif %}>Em trânsito</option>
+                </select>
+            </div>
+            <br>
             <input type="submit" class="button editar-button" value="Salvar">
+            <a href="/cartoes" class="button">Voltar</a>
         </form>
     </div>
     <script>

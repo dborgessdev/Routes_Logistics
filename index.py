@@ -396,23 +396,52 @@ def cartoes():
     dados_cartao = get_cartoes()
     return render_template("cartoes.html", cartoes=dados_cartao)
 
-@app.route("/cartoes_cadastro")
-def cartoes_cadastro():
-    return render_template("cartoes_cadastro.html")
+def cad_cartao(uid, status, link):
+    dados = {'uid': uid, 'status': status}
+    requisicao = requests.post(f'{link}/cartoes/.json', data=json.dumps(dados))
+    if requisicao.status_code == 200:
+        return True
+    else:
+        return False
 
-@app.route("/cadastrar_cartao", methods=["POST"])  # Rota para cadastrar cartão
+@app.route("/cadastrar_cartao", methods=["GET", "POST"])
 def cadastrar_cartao():
     if request.method == "POST":
-        uid = request.form["uid"]  # Obtendo o UID do formulário
-        if cad_cartao(uid, link):  # Chamando a função para cadastrar cartão
-            return redirect("/cartoes")  # Redirecionando após o cadastro
+        uid = request.form["uid"]
+        status = request.form["status"]
+        if cad_cartao(uid, status, link):
+            return redirect("/cartoes")
         else:
-            return "Erro ao cadastrar cartão."  # Retornando mensagem de erro em caso de falha
-    else:
-        return "Erro: Método de requisição falhou ou não é POST!"  # Tratamento para método de requisição diferente de POST
-    
+            return render_template("pagina_de_erro.html")
+    return render_template("cartoes_cadastro.html")
+
+def get_cartoes_por_uid(uid, link):
+    try:
+        requisicao = requests.get(f'{link}/cartoes/.json')
+        cartoes = requisicao.json()
+        for cartao_id, dados_cartao in cartoes.items():
+            if dados_cartao.get("uid") == uid:
+                return cartao_id, json.dumps(dados_cartao)
+        return None, None
+    except Exception as e:
+        print(f"Erro ao obter o cartão pelo UID: {e}")
+        return None, None
+
+def atualizar_cartao(uid_antigo, uid_novo, status, link):
+    try:
+        cartao_id, _ = get_cartoes_por_uid(uid_antigo, link)
+        if cartao_id:
+            dados = {"uid": uid_novo, "status": status}
+            requisicao = requests.put(f'{link}/cartoes/{cartao_id}.json', data=json.dumps(dados))
+            if requisicao.status_code == 200:
+                return True
+        return False
+    except Exception as e:
+        print(f"Erro ao atualizar o cartão: {e}")
+        return False
+
 @app.route("/editar_cartao/<string:uid>", methods=["GET", "POST"])
-def editar_cartao_route(uid):
+def editar_cartao(uid):
     if request.method == "GET":
         cartao_id, dados_cartao = get_cartoes_por_uid(uid, link)
         if dados_cartao is not None:
@@ -422,7 +451,8 @@ def editar_cartao_route(uid):
             return render_template("pagina_de_erro.html")
     elif request.method == "POST":
         novo_uid = request.form["uid"]
-        if atualizar_cartao(uid, novo_uid, link):
+        status = request.form["status"]
+        if atualizar_cartao(uid, novo_uid, status, link):
             return redirect("/cartoes")
         else:
             return render_template("pagina_de_erro.html")

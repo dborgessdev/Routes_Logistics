@@ -16,48 +16,13 @@
             <i class="bi bi-list" id="btn-exp"></i>
         </div>
         <ul>
-            <li class="item-menu">
-                <a href="/" class="active">
-                    <span class="icon"><i class="bi bi-house-door"></i></span>
-                    <span class="txt-link">Home</span>
-                </a>
-            </li>
-            <li class="item-menu">
-                <a href="/motoristas">
-                    <span class="icon"><i class="bi bi-file-earmark-person"></i></span>
-                    <span class="txt-link">Motoristas</span>
-                </a>
-            </li>
-            <li class="item-menu">
-                <a href="/viagens">
-                    <span class="icon"><i class="bi bi-sign-turn-right-fill"></i></span>
-                    <span class="txt-link">Rotas</span>
-                </a>
-            </li>
-            <li class="item-menu">
-                <a href="/veiculos">
-                    <span class="icon"><i class="bi bi-car-front-fill"></i></span>
-                    <span class="txt-link">Veículos</span>
-                </a>
-            </li>
-            <li class="item-menu">
-                <a href="/cartoes">
-                    <span class="icon"><i class="bi bi-credit-card"></i></span>
-                    <span class="txt-link">Cartões</span>
-                </a>
-            </li>
-            <li class="item-menu">
-                <a href="/login">
-                    <span class="icon"><i class="bi bi-person-circle"></i></span>
-                    <span class="txt-link">Login</span>
-                </a>
-            </li>
-            <li class="item-menu">
-                <a href="/logout">
-                    <span class="icon"><i class="bi bi-box-arrow-left"></i></span>
-                    <span class="txt-link">Logout</span>
-                </a>
-            </li>
+            <li class="item-menu"><a href="/" class="active"><span class="icon"><i class="bi bi-house-door"></i></span><span class="txt-link">Home</span></a></li>
+            <li class="item-menu"><a href="/motoristas"><span class="icon"><i class="bi bi-file-earmark-person"></i></span><span class="txt-link">Motoristas</span></a></li>
+            <li class="item-menu"><a href="/viagens"><span class="icon"><i class="bi bi-sign-turn-right-fill"></i></span><span class="txt-link">Rotas</span></a></li>
+            <li class="item-menu"><a href="/veiculos"><span class="icon"><i class="bi bi-car-front-fill"></i></span><span class="txt-link">Veículos</span></a></li>
+            <li class="item-menu"><a href="/cartoes"><span class="icon"><i class="bi bi-credit-card"></i></span><span class="txt-link">Cartões</span></a></li>
+            <li class="item-menu"><a href="/login"><span class="icon"><i class="bi bi-person-circle"></i></span><span class="txt-link">Login</span></a></li>
+            <li class="item-menu"><a href="/logout"><span class="icon"><i class="bi bi-box-arrow-left"></i></span><span class="txt-link">Logout</span></a></li>
         </ul>
     </nav>
     <div class="container">
@@ -65,7 +30,16 @@
         <form action="/cadastrar_cartao" method="POST">
             <div class="input-box">
                 <label for="uid">UID do cartão:</label>
-                <input type="text" id="uid" name="uid" placeholder="Informe o UID do cartão">
+                <input type="text" id="uid" name="uid" placeholder="Informe o UID do cartão" required>
+            </div>
+            <br>
+            <div class="input-box">
+                <label for="status">Status:</label>
+                <select id="status" name="status">
+                    <option value="Liberado">Liberado</option>
+                    <option value="Bloqueado">Bloqueado</option>
+                    <option value="Em trânsito">Em trânsito</option>
+                </select>
             </div>
             <br>
             <input type="submit" class="button editar-button" value="Cadastrar">
@@ -73,28 +47,17 @@
         </form>
     </div>
     <script>
-        //Seleciona os itens clicado
-        var menuItem = document.querySelectorAll('.item-menu')
-
-        function selectLink(){
-            menuItem.forEach((item)=>
-                item.classList.remove('ativo')
-            )
-            this.classList.add('ativo')
+        var menuItem = document.querySelectorAll('.item-menu');
+        function selectLink() {
+            menuItem.forEach((item) => item.classList.remove('ativo'));
+            this.classList.add('ativo');
         }
-
-        menuItem.forEach((item)=>
-            item.addEventListener('click', selectLink)
-        )
-
-        //Expandir o menu
-
-        var btnExp = document.querySelector('#btn-exp')
-        var menuSide = document.querySelector('.menu-lateral')
-
-        btnExp.addEventListener('click', function(){
-            menuSide.classList.toggle('expandir')
-        })
+        menuItem.forEach((item) => item.addEventListener('click', selectLink));
+        var btnExp = document.querySelector('#btn-exp');
+        var menuSide = document.querySelector('.menu-lateral');
+        btnExp.addEventListener('click', function () {
+            menuSide.classList.toggle('expandir');
+        });
     </script>
 </body>
 
