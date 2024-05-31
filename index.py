@@ -30,12 +30,14 @@ from cadastrar_viagens import cad_viagens
 from get_viagens_por_motorista import get_viagens_por_motorista
 from atualizar_viagem import atualizar_viagem
 from deletar_viagem import deletar_viagem
+from calcular_menor_distancia import calcular_menor_distancia
 #CARTOES
 from buscar_cartoes import get_cartoes
 from cadastrar_cartoes import cad_cartao
 from get_cartoes_por_uid import get_cartoes_por_uid
 from atualizar_cartao import atualizar_cartao
 from deletar_cartao import deletar_cartao
+
 
 
 
@@ -117,9 +119,15 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-# Protegendo a rota do dashboard
-@app.route('/dashboard')
+@app.route('/homepage')
 @login_required
+def homepage():
+    return render_template('homepage.html')
+
+#### DASHBOARD ####
+# Rota para exibir o dashboard
+# Rota para exibir o dashboard
+@app.route('/dashboard')
 def show_dashboard():
     requisicao = requests.get(f'{link}/viagens.json')
     viagens = requisicao.json()
@@ -134,38 +142,20 @@ def show_dashboard():
         data.append([motorista, distancia])
     
     df = pd.DataFrame(data, columns=['Motorista', 'Distancia'])
-    fig = px.bar(df, x='Motorista', y='Distancia', title='Distância Total por Motorista')
+    
+    # Agrupa os dados por motorista e calcula a soma da distância total para cada um
+    df_grouped = df.groupby('Motorista').sum().reset_index()
+    
+    min_dist_motorista = df_grouped.loc[df_grouped['Distancia'].idxmin()]
+
+    # Destacar o motorista com a menor distância
+    fig = px.bar(df_grouped, x='Motorista', y='Distancia', title='Distância Total por Motorista')
+    fig.update_traces(marker_color=['red' if x == min_dist_motorista['Motorista'] else '#636efa' for x in df_grouped['Motorista']])
+
     graph_html = fig.to_html(full_html=False)
     
-    return render_template('dashboard.html', graph_html=graph_html)
+    return render_template('dashboard.html', graph_html=graph_html, min_dist_motorista=min_dist_motorista['Motorista'])
 
-@app.route('/homepage')
-@login_required
-def homepage():
-    return render_template('homepage.html')
-
-#### DASHBOARD ####
-# Rota para exibir o dashboard
-@app.route('/dashboard')
-def dashboard_view():
-    requisicao = requests.get(f'{link}/viagens.json')
-    viagens = requisicao.json()
-    
-    if not viagens:
-        # Se não houver viagens, renderize uma página informando isso
-        return render_template('sem_viagens.html')
-    
-    data = []
-    for key, viagem in viagens.items():
-        motorista = viagem.get('motorista')
-        distancia = float(viagem.get('distancia_total', 0))
-        data.append([motorista, distancia])
-    
-    df = pd.DataFrame(data, columns=['Motorista', 'Distancia'])
-    fig = px.bar(df, x='Motorista', y='Distancia', title='Distância Total por Motorista')
-    graph_html = fig.to_html(full_html=False)
-    
-    return render_template('dashboard.html', graph_html=graph_html)
 
 # Rota para baixar o arquivo Excel
 @app.route('/download_excel')
@@ -336,8 +326,18 @@ def viagens_cadastro():
     has_motoristas, motoristas = get_motoristas()
     if not has_motoristas:
         return render_template('sem_motoristas.html')
-    return render_template('viagens_cadastro.html', motoristas=motoristas)
 
+    response = requests.get(f'{link}/viagens.json')
+    viagens = response.json() if response.status_code == 200 else {}
+
+    if viagens:
+        motorista_menor_distancia, menor_distancia = calcular_menor_distancia(viagens)
+    else:
+        motorista_menor_distancia, menor_distancia = None, None
+
+    return render_template('viagens_cadastro.html', motoristas=motoristas, motorista_menor_distancia=motorista_menor_distancia, menor_distancia=menor_distancia)
+
+# Rota para cadastrar uma nova viagem
 @app.route("/cadastrar_viagem", methods=["POST"])
 def cadastrar_viagem():
     if request.method == "POST":
@@ -348,8 +348,11 @@ def cadastrar_viagem():
         distancia_total = request.form["distancia_total"]
         status_viagem = request.form["status_viagem"]
         motorista = request.form["motorista"]
-        cad_viagens(origem, destino, data_inicio, data_fim, distancia_total, status_viagem, motorista)  # Chamada da função para cadastrar viagem
-        return redirect("/viagens")
+        
+        # Cadastro da nova viagem
+        cad_viagens(origem, destino, data_inicio, data_fim, distancia_total, status_viagem, motorista)
+        
+        return redirect("/dashboard")
     else:
         return "Erro: Método de requisição falhou ou não é POST!"
     
@@ -431,7 +434,6 @@ def deletar_cartao_route(uid):
         return redirect("/cartoes")
     else:
         return "Erro ao deletar cartão."
-    
     
 if __name__ == "__main__":
     app.run(debug=True)

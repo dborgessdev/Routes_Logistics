@@ -23,12 +23,6 @@
                 </a>
             </li>
             <li class="item-menu">
-                <a href="/dashboard">
-                    <span class="icon"><i class="bi bi-columns-gap"></i></i></span>
-                    <span class="txt-link">Dashboard</span>
-                </a>
-            </li>
-            <li class="item-menu">
                 <a href="/motoristas">
                     <span class="icon"><i class="bi bi-file-earmark-person"></i></span>
                     <span class="txt-link">Motoristas</span>
@@ -53,9 +47,9 @@
                 </a>
             </li>
             <li class="item-menu">
-                <a href="/registrar">
+                <a href="/login">
                     <span class="icon"><i class="bi bi-person-circle"></i></span>
-                    <span class="txt-link">Singup</span>
+                    <span class="txt-link">Login</span>
                 </a>
             </li>
             <li class="item-menu">
@@ -70,6 +64,9 @@
         <h1 class="my-4">Dashboard</h1>
         <div>
             {{ graph_html|safe }}
+        </div>
+        <div class="alert alert-info" role="alert">
+            O motorista indicado para a próxima viagem é: <strong>{{ min_dist_motorista }}</strong>
         </div>
         <a href="/download_excel" class="button editar-button">Download Excel</a>
         <a href="/homepage" class="button editar-button">Início</a>
