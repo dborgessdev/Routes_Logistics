@@ -1,19 +1,48 @@
-from flask import Flask
 import requests
 import json
 
-app = Flask(__name__)
-link = "https://projetoflask-fb-default-rtdb.firebaseio.com/"
+class ViagemBuilder:
 
+    def __init__(self):
+        self.dados = {}
+    
+    def origem(self, origem):
+        self.dados['origem'] = origem
+        return self
+    
+    def destino(self, destino):
+        self.dados['destino'] = destino
+        return self
+    
+    def data_inicio(self, data_inicio):
+        self.dados['data_inicio'] = data_inicio
+        return self
+    
+    def data_fim(self, data_fim):
+        self.dados['data_fim'] = data_fim
+        return self
+    
+    def distancia_total(self, distancia_total):
+        self.dados['distancia_total'] = distancia_total
+        return self
+    
+    def status_viagem(self, status_viagem):
+        self.dados['status_viagem'] = status_viagem
+        return self
+    
+    def motorista(self, motorista):
+        self.dados['motorista'] = motorista
+        return self
+    
+    def build(self):
+        return self.dados
 
-""" cad viagens """
-def cad_viagens(origem, destino, data_inicio, data_fim, distancia_total, status_viagem, motorista):
+def cad_viagens(origem, destino, data_inicio, data_fim, distancia_total, status_viagem, motorista, link):
     dados = {'origem': origem, 'destino': destino, 'data_inicio': data_inicio, 'data_fim': data_fim, 'distancia_total': distancia_total, 'status_viagem': status_viagem, 'motorista': motorista}
     requisicao = requests.post(f'{link}/viagens/.json', data=json.dumps(dados))
 
-    ('Feira de Santana', 'São Paulo', '02/05, 15:25', '03/05, 15:25', '200Km', 'concluida', 'José')
+    if requisicao.status_code == 200:
+        return True
+    else:
+        return False
 
-#colocar o site no ar
-if __name__ == "__main__":
-    #OBS: utiliza-se app.run(debug=True) para ligrar o debug, porém o console retornará o comando executado 2x gerando 2x dados para o banco de dados 
-    app.run()

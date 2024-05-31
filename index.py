@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, send_file, url_for,
 import requests
 import json
 #AUTH IMPORTS
-import firebase_admin
 from firebase_admin import auth
 import firebase_config  # Importando as configurações do Firebase
 import pyrebase
@@ -60,8 +59,6 @@ firebase_config = {
 
 firebase = pyrebase.initialize_app(firebase_config)
 auth_pyrebase = firebase.auth()
-
-
 
 #### AUTH ##### Rota para a página de login
 @app.route('/', methods=['GET', 'POST'])
@@ -275,7 +272,7 @@ def cad_motorista():
         cnh = request.form["cnh"]
         id_veiculo = request.form["id_veiculo"]
         validade_cnh = request.form["validade_cnh"]
-        cad_motoristas(nome, cpf, cnh, id_veiculo, validade_cnh)
+        cad_motoristas(nome, cpf, cnh, id_veiculo, validade_cnh, link)
         return redirect("/motoristas")
     else:
         return "Erro: Método de requisição falhou ou não é POST!"
@@ -350,7 +347,7 @@ def cadastrar_viagem():
         motorista = request.form["motorista"]
         
         # Cadastro da nova viagem
-        cad_viagens(origem, destino, data_inicio, data_fim, distancia_total, status_viagem, motorista)
+        cad_viagens(origem, destino, data_inicio, data_fim, distancia_total, status_viagem, motorista, link)
         
         return redirect("/dashboard")
     else:
