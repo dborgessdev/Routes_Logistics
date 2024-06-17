@@ -1,6 +1,5 @@
 import requests
 import json
-
 class ViagemBuilder:
 
     def __init__(self):
